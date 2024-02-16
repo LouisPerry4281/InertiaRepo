@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    /*private InputWrapper _input;
+    private InputWrapper _input;
 
     public GameObject CinemachineCameraTarget;
     private CharacterController _controller;
@@ -143,5 +143,5 @@ public class PlayerMovement : MonoBehaviour
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch,
             _cinemachineTargetYaw, 0.0f);
     }
-    #endregion*/
+    #endregion
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
-/*public class InputWrapper : MonoBehaviour
+public class InputWrapper : MonoBehaviour
 {
 	public Vector2 move;
 	public Vector2 look;
@@ -23,4 +23,4 @@ using UnityEngine;
     {
 		dash = value.isPressed;
     }
-}*/
+}
