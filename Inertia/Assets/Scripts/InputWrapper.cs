@@ -8,6 +8,7 @@ public class InputWrapper : MonoBehaviour
 	public Vector2 move;
 	public Vector2 look;
 	public bool dash;
+	public bool attack;
 
 	public void OnMove(InputValue value)
     {
@@ -22,5 +23,10 @@ public class InputWrapper : MonoBehaviour
 	public void OnDash(InputValue value)
     {
 		dash = value.isPressed;
+    }
+	
+	public void OnAttack(InputValue value)
+    {
+		attack = value.isPressed;
     }
 }
