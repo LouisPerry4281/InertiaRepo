@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isDashing = false;
     public float dashModifier;
     public float dashTime;
-    private Vector2 preDashVelocity;
-    private Vector2 dashVelocity;
+    private Vector3 preDashVelocity;
+    private Vector3 dashVelocity;
 
     private const float _threshold = 0.01f;
 
@@ -90,26 +90,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        if (isDashing)
-            _controller.Move(dashVelocity);
-
         if (!_input.dash)
             return;
 
         StartCoroutine(DashController());
+
+        if (isDashing)
+            _controller.Move(dashVelocity);
     }
 
     private IEnumerator DashController()
     {
-        _input.dash = false;
         isDashing = true;
 
-        preDashVelocity = _controller.velocity.normalized;
-        dashVelocity = preDashVelocity * dashModifier;
+        print(_controller.velocity);
+        preDashVelocity = new Vector3(_controller.velocity.x, 0, _controller.velocity.z).normalized;
+        print(preDashVelocity);
+        dashVelocity = preDashVelocity * dashModifier * Time.deltaTime;
 
         yield return new WaitForSeconds(dashTime);
 
         isDashing = false;
+        _input.dash = false;
         yield return null;
     }
 

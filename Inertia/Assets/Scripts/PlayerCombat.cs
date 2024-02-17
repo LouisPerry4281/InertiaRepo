@@ -54,6 +54,8 @@ public class PlayerCombat : MonoBehaviour
         _input.attack = false;
         isAttacking = true;
 
+        _input.dash = true;
+
         yield return new WaitForSeconds(attackTimer);
 
         isAttacking = false;

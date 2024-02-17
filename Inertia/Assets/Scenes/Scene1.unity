@@ -449,6 +449,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4909394997275698791, guid: e4317fbe60f7c4e55b39363639806566,
+        type: 3}
+      propertyPath: dashTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909394997275698791, guid: e4317fbe60f7c4e55b39363639806566,
+        type: 3}
+      propertyPath: dashModifier
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8489231682562125799, guid: e4317fbe60f7c4e55b39363639806566,
         type: 3}
       propertyPath: baseDamage
@@ -457,7 +467,7 @@ PrefabInstance:
     - target: {fileID: 8489231682562125799, guid: e4317fbe60f7c4e55b39363639806566,
         type: 3}
       propertyPath: attackTimer
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9041394415858928933, guid: e4317fbe60f7c4e55b39363639806566,
         type: 3}
