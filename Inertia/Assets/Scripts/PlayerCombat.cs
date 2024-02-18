@@ -45,7 +45,8 @@ public class PlayerCombat : MonoBehaviour
         foreach (GameObject g in targetEnemies)
         {
             float finalDamage = (baseDamage * playerMovement._currentJuice) + baseDamage / 2;
-            g.GetComponent<EnemyHealth>().InitialiseDamage(finalDamage, attackTimer);
+            if (g != null)
+                g.GetComponent<EnemyHealth>().InitialiseDamage(finalDamage, attackTimer);
         }
     }
 

@@ -126,6 +126,12 @@ public class PlayerMovement : MonoBehaviour
     {
         CameraRotation();
     }
+
+    public void JuiceChange(float juiceToAdd)
+    {
+        _currentJuice += juiceToAdd;
+        _currentJuice = Mathf.Clamp(_currentJuice, 0, _maxJuice);
+    }
             
     #region CameraStuff
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

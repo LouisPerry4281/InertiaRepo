@@ -8,11 +8,13 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float health;
     bool isVulnerable = true;
 
-    ParticleSystem deathParticle;
+    [SerializeField] ParticleSystem deathParticle;
+
+    PlayerMovement playerMovement;
 
     private void Start()
     {
-        deathParticle = GetComponentInChildren<ParticleSystem>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
     }
 
     public void InitialiseDamage(float damageToTake, float damageTimer)
@@ -39,8 +41,11 @@ public class EnemyHealth : MonoBehaviour
         {
             deathParticle.Play();
 
+            playerMovement.JuiceChange(0.2f);
+
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<BoxCollider>().enabled = false;
+            Destroy(gameObject);
         }
     }
 }
