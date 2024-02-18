@@ -8,6 +8,13 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float health;
     bool isVulnerable = true;
 
+    ParticleSystem deathParticle;
+
+    private void Start()
+    {
+        deathParticle = GetComponentInChildren<ParticleSystem>();
+    }
+
     public void InitialiseDamage(float damageToTake, float damageTimer)
     {
         if (isVulnerable)
@@ -30,7 +37,10 @@ public class EnemyHealth : MonoBehaviour
     {
         if (health <= 0)
         {
-            print("ded");
+            deathParticle.Play();
+
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
         }
     }
 }
