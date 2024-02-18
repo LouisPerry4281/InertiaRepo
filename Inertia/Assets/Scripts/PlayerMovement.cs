@@ -36,6 +36,12 @@ public class PlayerMovement : MonoBehaviour
 
     private const float _threshold = 0.01f;
 
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void Start()
     {
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
