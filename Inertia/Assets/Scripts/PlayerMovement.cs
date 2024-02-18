@@ -86,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 targetDirection = Quaternion.Euler(0, _targetRotation, 0) * Vector3.forward;
 
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime)); //When adding gravity/Jump Don't forget to +verticalVelocity
+
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     private void Dash()
@@ -103,12 +105,17 @@ public class PlayerMovement : MonoBehaviour
     {
         isDashing = true;
 
-        print(_controller.velocity);
+        //Disables collision between player and enemy layer
+        Physics.IgnoreLayerCollision(7, 6, true);
+
+        //Determines direction player is moving when starting dash and adjusting for modifier variable and deltaTime (as well as normalising for direction)
         preDashVelocity = new Vector3(_controller.velocity.x, 0, _controller.velocity.z).normalized;
-        print(preDashVelocity);
         dashVelocity = preDashVelocity * dashModifier * Time.deltaTime;
 
         yield return new WaitForSeconds(dashTime);
+
+        //Re-enables player and enemy collisions
+        Physics.IgnoreLayerCollision(7, 6, false);
 
         isDashing = false;
         _input.dash = false;
