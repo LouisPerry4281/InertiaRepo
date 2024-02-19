@@ -140,7 +140,7 @@ Material:
     - _BaseColor: {r: 0.26666668, g: 0.5128341, b: 0.73333335, a: 1}
     - _Color: {r: 0.26666665, g: 0.5128341, b: 0.7333333, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0.8018868, g: 0.6505874, b: 0.5182004, a: 0}
+    - _MainColor: {r: 0.8, g: 0.6509804, b: 0.5176471, a: 0}
     - _NoiseColor: {r: 1, g: 1, b: 1, a: 0}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.6132076, g: 0.49566007, b: 0.39048594, a: 1}

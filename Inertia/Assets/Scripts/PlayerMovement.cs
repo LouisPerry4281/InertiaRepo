@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject CinemachineCameraTarget;
     private CharacterController _controller;
+    private Animator _playerAnim;
 
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
@@ -48,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
         _input = GetComponent<InputWrapper>();
         _controller = GetComponent<CharacterController>();
+        _playerAnim = GetComponentInChildren<Animator>();
+
     }
 
     private void Update()
@@ -94,6 +97,13 @@ public class PlayerMovement : MonoBehaviour
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime)); //When adding gravity/Jump Don't forget to +verticalVelocity
 
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+
+        HandleAnimation();
+    }
+
+    private void HandleAnimation()
+    {
+        _playerAnim.SetFloat("Locomotion", _speed);
     }
 
     private void Dash()
