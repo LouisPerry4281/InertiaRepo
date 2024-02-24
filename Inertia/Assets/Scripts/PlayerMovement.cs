@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
 
     private const float _threshold = 0.01f;
 
+    public bool insideEnemy = false;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -108,6 +110,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
+        if (!insideEnemy && !isDashing)
+        {
+            //Re-enables player and enemy collisions
+            Physics.IgnoreLayerCollision(7, 6, false);
+        }
+
         if (!_input.dash)
             return;
 
@@ -130,11 +138,9 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(dashTime);
 
-        //Re-enables player and enemy collisions
-        Physics.IgnoreLayerCollision(7, 6, false);
-
         isDashing = false;
         _input.dash = false;
+
         yield return null;
     }
 
@@ -148,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
         _currentJuice += juiceToAdd;
         _currentJuice = Mathf.Clamp(_currentJuice, 0, _maxJuice);
     }
-            
+
     #region CameraStuff
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {

@@ -5,10 +5,12 @@ using UnityEngine;
 public class HitboxManager : MonoBehaviour
 {
     PlayerCombat playerCombat;
+    PlayerMovement playerMovement;
 
     private void Start()
     {
         playerCombat = GetComponentInParent<PlayerCombat>();
+        playerMovement = GetComponentInParent<PlayerMovement>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,10 +26,20 @@ public class HitboxManager : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 6)
+        {
+            playerMovement.insideEnemy = true;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 6)
         {
+            playerMovement.insideEnemy = false;
+
             playerCombat.targetEnemies.Remove(other.gameObject);
         }
     }

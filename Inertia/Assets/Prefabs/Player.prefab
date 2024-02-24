@@ -2567,10 +2567,11 @@ MonoBehaviour:
   speedChangeRate: 10
   RotationSmoothTime: 0.12
   _maxJuice: 1
-  _currentJuice: 1
+  _currentJuice: 0
   isDashing: 0
   dashModifier: 20
   dashTime: 0.1
+  insideEnemy: 0
 --- !u!114 &7446441919324353825
 MonoBehaviour:
   m_ObjectHideFlags: 0

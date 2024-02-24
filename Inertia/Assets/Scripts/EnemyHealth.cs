@@ -8,7 +8,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float health;
     bool isVulnerable = true;
 
-    [SerializeField] ParticleSystem deathParticle;
+    [SerializeField] GameObject hitEffect;
 
     PlayerMovement playerMovement;
 
@@ -30,6 +30,8 @@ public class EnemyHealth : MonoBehaviour
         health -= damageToTake;
         HealthCheck();
 
+        Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+
         yield return new WaitForSeconds(damageTimer);
 
         isVulnerable = true;
@@ -39,8 +41,6 @@ public class EnemyHealth : MonoBehaviour
     {
         if (health <= 0)
         {
-            deathParticle.Play();
-
             playerMovement.JuiceChange(0.2f);
 
             GetComponent<MeshRenderer>().enabled = false;
