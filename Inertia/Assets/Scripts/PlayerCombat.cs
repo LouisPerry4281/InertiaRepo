@@ -9,14 +9,16 @@ public class PlayerCombat : MonoBehaviour
     PlayerMovement playerMovement;
 
     public List<GameObject> targetEnemies = new List<GameObject>();
-    public List<GameObject> enemiesInRange = new List<GameObject>();
+    public List<GameObject> aliveEnemies = new List<GameObject>();
 
     [SerializeField] float attackRange;
     [SerializeField] float baseDamage;
     [SerializeField] float attackTimer;
 
     GameObject closestEnemy;
+    float targetDistance;
     float closestEnemyDistance = 10000f;
+    public bool inAttackRange = false;
 
     public bool isAttacking = false;
 
@@ -24,6 +26,8 @@ public class PlayerCombat : MonoBehaviour
     {
         _input = GetComponent<InputWrapper>();
         playerMovement = GetComponent<PlayerMovement>();
+
+        aliveEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
     }
 
     private void Update()
@@ -38,18 +42,6 @@ public class PlayerCombat : MonoBehaviour
             AttackScanEnemy();
             return;
         }
-
-        //Checks all enemies to see which is closest
-        enemiesInRange.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-        foreach (GameObject enemy in enemiesInRange)
-        {
-            if (Vector3.Distance(gameObject.transform.position, enemy.transform.position) < closestEnemyDistance)
-            {
-                closestEnemy = enemy;
-            }
-        }
-        print(closestEnemy.name);
-        closestEnemyDistance = 10000f;
 
         if (_input.attack) 
         {
@@ -74,12 +66,74 @@ public class PlayerCombat : MonoBehaviour
 
         playerMovement.enabled = false;
 
+        DistanceCheck();
+
+        /*if (inAttackRange)
+            AttackDash();
+
+        else
+            AttackNormal();
+        */
         yield return new WaitForSeconds(attackTimer);
+
+        inAttackRange = false;
 
         isAttacking = false;
 
         playerMovement.enabled = true;
 
         yield return null;
+    }
+
+    private void AttackDash()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void AttackNormal()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void DistanceCheck()
+    {
+        inAttackRange = false;
+
+        foreach (GameObject enemy in aliveEnemies)
+        {
+            if (enemy == null)
+                return;
+
+            targetDistance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+            if (targetDistance < closestEnemyDistance)
+            {
+                closestEnemy = enemy;
+                closestEnemyDistance = targetDistance;
+            }
+        }
+
+        if (closestEnemy == null)
+        {
+            print("No Closest Enemy");
+            inAttackRange = false;
+            return;
+        }
+        if (Vector3.Distance(closestEnemy.transform.position, gameObject.transform.position) < attackRange)
+        {
+            inAttackRange = true;
+        }
+
+        else
+            inAttackRange = false;
+    }
+
+    public void AddEnemiesToList(GameObject enemyToAdd)
+    {
+        aliveEnemies.Add(enemyToAdd);
+    }
+
+    public void RemoveEnemiesFromList(GameObject enemyToRemove)
+    {
+        aliveEnemies.Remove(enemyToRemove);
     }
 }

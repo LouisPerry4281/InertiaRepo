@@ -45,6 +45,9 @@ public class EnemyHealth : MonoBehaviour
 
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<BoxCollider>().enabled = false;
+
+            playerMovement.gameObject.GetComponent<PlayerCombat>().RemoveEnemiesFromList(gameObject);
+
             Destroy(gameObject);
         }
     }
