@@ -9,9 +9,14 @@ public class PlayerCombat : MonoBehaviour
     PlayerMovement playerMovement;
 
     public List<GameObject> targetEnemies = new List<GameObject>();
+    public List<GameObject> enemiesInRange = new List<GameObject>();
 
+    [SerializeField] float attackRange;
     [SerializeField] float baseDamage;
     [SerializeField] float attackTimer;
+
+    GameObject closestEnemy;
+    float closestEnemyDistance = 10000f;
 
     public bool isAttacking = false;
 
@@ -34,6 +39,18 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
 
+        //Checks all enemies to see which is closest
+        enemiesInRange.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        foreach (GameObject enemy in enemiesInRange)
+        {
+            if (Vector3.Distance(gameObject.transform.position, enemy.transform.position) < closestEnemyDistance)
+            {
+                closestEnemy = enemy;
+            }
+        }
+        print(closestEnemy.name);
+        closestEnemyDistance = 10000f;
+
         if (_input.attack) 
         {
             StartCoroutine(Attack());
@@ -55,11 +72,13 @@ public class PlayerCombat : MonoBehaviour
         _input.attack = false;
         isAttacking = true;
 
-        _input.dash = true;
+        playerMovement.enabled = false;
 
         yield return new WaitForSeconds(attackTimer);
 
         isAttacking = false;
+
+        playerMovement.enabled = true;
 
         yield return null;
     }
