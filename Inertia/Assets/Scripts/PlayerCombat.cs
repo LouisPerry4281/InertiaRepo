@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class PlayerCombat : MonoBehaviour
 {
     private InputWrapper _input;
     PlayerMovement playerMovement;
+    CharacterController _controller;
 
     public List<GameObject> targetEnemies = new List<GameObject>();
     public List<GameObject> aliveEnemies = new List<GameObject>();
@@ -14,6 +16,10 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] float attackRange;
     [SerializeField] float baseDamage;
     [SerializeField] float attackTimer;
+
+    [SerializeField] float lockOnDashModifier;
+    [SerializeField] float lockOffDashModifier;
+    Vector3 dashVelocity;
 
     GameObject closestEnemy;
     float targetDistance;
@@ -26,6 +32,7 @@ public class PlayerCombat : MonoBehaviour
     {
         _input = GetComponent<InputWrapper>();
         playerMovement = GetComponent<PlayerMovement>();
+        _controller = GetComponent<CharacterController>();
 
         aliveEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
     }
@@ -39,6 +46,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isAttacking)
         {
+            DashMovement();
             AttackScanEnemy();
             return;
         }
@@ -61,19 +69,20 @@ public class PlayerCombat : MonoBehaviour
 
     IEnumerator Attack()
     {
-        _input.attack = false;
-        isAttacking = true;
-
         playerMovement.enabled = false;
+
+        _input.attack = false;
 
         DistanceCheck();
 
-        /*if (inAttackRange)
+        if (inAttackRange)
             AttackDash();
 
         else
             AttackNormal();
-        */
+
+        isAttacking = true;
+
         yield return new WaitForSeconds(attackTimer);
 
         inAttackRange = false;
@@ -82,17 +91,38 @@ public class PlayerCombat : MonoBehaviour
         
         playerMovement.enabled = true;
 
+        DistanceCheck();
+
         yield return null;
     }
 
     private void AttackDash()
     {
-        throw new NotImplementedException();
+        //Disables collision between player and enemy layer
+        Physics.IgnoreLayerCollision(7, 6, true);
+
+        //This should be set to lock on facing movement
+        Vector3 preDashDirection = closestEnemy.transform.position - gameObject.transform.position;
+        dashVelocity = new Vector3(preDashDirection.x, 0, preDashDirection.z).normalized;
+        dashVelocity = dashVelocity * lockOnDashModifier * Time.deltaTime;
     }
 
     private void AttackNormal()
     {
-        throw new NotImplementedException();
+        print("NO ENEMY");
+        /*
+        //Disables collision between player and enemy layer
+        Physics.IgnoreLayerCollision(7, 6, true);
+
+        //This sould be turned to camera facing movement//////////////////////////////////
+        Vector3 preDashVelocity = new Vector3(_controller.velocity.x, 0, _controller.velocity.z).normalized;
+        dashVelocity = preDashVelocity * lockOnDashModifier * Time.deltaTime;*/
+    }
+
+    private void DashMovement()
+    {
+        print(dashVelocity);
+        _controller.Move(dashVelocity);
     }
 
     private void DistanceCheck()
