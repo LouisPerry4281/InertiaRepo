@@ -79,7 +79,7 @@ public class PlayerCombat : MonoBehaviour
         inAttackRange = false;
 
         isAttacking = false;
-
+        
         playerMovement.enabled = true;
 
         yield return null;
@@ -111,10 +111,10 @@ public class PlayerCombat : MonoBehaviour
                 closestEnemyDistance = targetDistance;
             }
         }
-
+        
         if (closestEnemy == null)
         {
-            print("No Closest Enemy");
+            print("No Enemy In Range");
             inAttackRange = false;
             return;
         }
