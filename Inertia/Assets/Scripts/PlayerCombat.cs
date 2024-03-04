@@ -9,6 +9,7 @@ public class PlayerCombat : MonoBehaviour
     private InputWrapper _input;
     PlayerMovement playerMovement;
     CharacterController _controller;
+    HitboxManager _hitboxManager;
 
     public List<GameObject> targetEnemies = new List<GameObject>();
     public List<GameObject> aliveEnemies = new List<GameObject>();
@@ -32,6 +33,7 @@ public class PlayerCombat : MonoBehaviour
         _input = GetComponent<InputWrapper>();
         playerMovement = GetComponent<PlayerMovement>();
         _controller = GetComponent<CharacterController>();
+        _hitboxManager = GetComponentInChildren<HitboxManager>();
 
         aliveEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
     }
@@ -87,6 +89,7 @@ public class PlayerCombat : MonoBehaviour
         inAttackRange = false;
 
         isAttacking = false;
+        playerMovement.isDashing = false;
         
         playerMovement.enabled = true;
 
@@ -98,6 +101,7 @@ public class PlayerCombat : MonoBehaviour
     {
         //Disables collision between player and enemy layer
         Physics.IgnoreLayerCollision(7, 6, true);
+        playerMovement.isDashing = true;
 
         //This should be set to lock on facing movement
         Vector3 preDashDirection = closestEnemyInRange.transform.position - gameObject.transform.position;

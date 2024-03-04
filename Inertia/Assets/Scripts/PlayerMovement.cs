@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private InputWrapper _input;
+    private HitboxManager _hitboxManager;
 
     public GameObject CinemachineCameraTarget;
     private CharacterController _controller;
@@ -37,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
 
     private const float _threshold = 0.01f;
 
-    public bool insideEnemy = false;
 
     private void Awake()
     {
@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         _input = GetComponent<InputWrapper>();
         _controller = GetComponent<CharacterController>();
         _playerAnim = GetComponentInChildren<Animator>();
+        _hitboxManager = GetComponentInChildren<HitboxManager>();
 
     }
 
@@ -110,10 +111,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        if (!insideEnemy && !isDashing)
+        if (!_hitboxManager.insideEnemy && !isDashing)
         {
             //Re-enables player and enemy collisions
             Physics.IgnoreLayerCollision(7, 6, false);
+            print("Stop Colliding");
         }
 
         if (!_input.dash)

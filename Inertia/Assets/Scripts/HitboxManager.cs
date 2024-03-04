@@ -7,6 +7,8 @@ public class HitboxManager : MonoBehaviour
     PlayerCombat playerCombat;
     PlayerMovement playerMovement;
 
+    public bool insideEnemy = false;
+
     private void Start()
     {
         playerCombat = GetComponentInParent<PlayerCombat>();
@@ -30,7 +32,7 @@ public class HitboxManager : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            playerMovement.insideEnemy = true;
+            insideEnemy = true;
         }
     }
 
@@ -38,7 +40,7 @@ public class HitboxManager : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            playerMovement.insideEnemy = false;
+            insideEnemy = false;
 
             playerCombat.targetEnemies.Remove(other.gameObject);
         }
