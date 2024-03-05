@@ -115,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
         {
             //Re-enables player and enemy collisions
             Physics.IgnoreLayerCollision(7, 6, false);
-            print("Stop Colliding");
         }
 
         if (!_input.dash)
@@ -167,20 +166,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void CameraRotation()
     {
-        // if there is an input and camera position is not fixed
+        if (isDashing)
+            return;
         if (_input.look.sqrMagnitude >= _threshold)
         {
             _cinemachineTargetYaw += _input.look.x;
             _cinemachineTargetPitch += _input.look.y;
         }
 
-        // clamp our rotations so our values are limited 360 degrees
+        //Clamp rotations so values are limited 360 degrees
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
-        // Cinemachine will follow this target
-        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch,
-            _cinemachineTargetYaw, 0.0f);
+        //Cinemachine will follow this target
+        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch, _cinemachineTargetYaw, 0.0f);
     }
     #endregion
 }

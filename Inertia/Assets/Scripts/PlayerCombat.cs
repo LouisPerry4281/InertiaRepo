@@ -106,14 +106,22 @@ public class PlayerCombat : MonoBehaviour
         //This should be set to lock on facing movement
         Vector3 preDashDirection = closestEnemyInRange.transform.position - gameObject.transform.position;
         dashVelocity = new Vector3(preDashDirection.x, 0, preDashDirection.z).normalized;
+
+        gameObject.transform.LookAt(preDashDirection);
+
         dashVelocity = dashVelocity * lockOnDashModifier * Time.deltaTime;
     }
 
     private void AttackNormal()
     {
-        print("NO ENEMY");
+        Vector3 preDashDirection = Camera.main.transform.forward;
+        preDashDirection.y = 0;
 
-        dashVelocity = Vector3.zero;
+        transform.rotation = Quaternion.LookRotation(preDashDirection);
+
+        playerMovement.isDashing = true;
+
+        dashVelocity = preDashDirection.normalized * lockOffDashModifier * Time.deltaTime;
     }
 
     private void DashMovement()
