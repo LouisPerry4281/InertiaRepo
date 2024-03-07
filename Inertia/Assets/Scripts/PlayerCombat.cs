@@ -28,6 +28,8 @@ public class PlayerCombat : MonoBehaviour
 
     public bool isAttacking = false;
 
+    [SerializeField] GameObject targetTestObject;
+
     private void Start()
     {
         _input = GetComponent<InputWrapper>();
@@ -107,21 +109,22 @@ public class PlayerCombat : MonoBehaviour
         Vector3 preDashDirection = closestEnemyInRange.transform.position - gameObject.transform.position;
         dashVelocity = new Vector3(preDashDirection.x, 0, preDashDirection.z).normalized;
 
-        gameObject.transform.LookAt(preDashDirection);
+            
 
         dashVelocity = dashVelocity * lockOnDashModifier * Time.deltaTime;
+
+        transform.rotation = Quaternion.LookRotation(preDashDirection);
     }
 
     private void AttackNormal()
     {
         Vector3 preDashDirection = Camera.main.transform.forward;
         preDashDirection.y = 0;
-
         transform.rotation = Quaternion.LookRotation(preDashDirection);
 
-        playerMovement.isDashing = true;
-
         dashVelocity = preDashDirection.normalized * lockOffDashModifier * Time.deltaTime;
+                
+        playerMovement.isDashing = true;
     }
 
     private void DashMovement()

@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        CameraRotation();
+        //CameraRotation();
     }
 
     public void JuiceChange(float juiceToAdd)
@@ -168,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing)
             return;
+
         if (_input.look.sqrMagnitude >= _threshold)
         {
             _cinemachineTargetYaw += _input.look.x;
