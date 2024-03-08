@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using Input = UnityEngine.Input;
 
 public class PlayerRigidbodyMovement : MonoBehaviour
 {
@@ -25,6 +26,14 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
     Vector2 moveInput;
 
+    //
+    //
+    // For a dash, shoot raycast forward set distance (Scales off juice) then place object at the end (or where it collides)
+    //
+    //
+
+
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -41,6 +50,11 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            transform.position += transform.forward * 10;
+        }
     }
 
     private void MovePlayer()
