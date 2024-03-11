@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 using Input = UnityEngine.Input;
 
 public class PlayerRigidbodyMovement : MonoBehaviour
@@ -24,6 +25,10 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [SerializeField] LayerMask dashCollisionLayers;
     [SerializeField] GameObject dashTarget;
 
+    [Header("Visual Effects")]
+    [SerializeField] GameObject dashEffectUp;
+    [SerializeField] GameObject dashEffectDown;
+
     [Header("Juice")]
     [SerializeField] float currentJuice;
     [SerializeField] float maxJuice;
@@ -42,6 +47,9 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+
+        dashEffectUp.GetComponentInChildren<VisualEffect>().Stop();
+        dashEffectDown.GetComponentInChildren<VisualEffect>().Stop();
     }
 
     private void OnMove(InputValue value)
@@ -140,6 +148,14 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         //Hide player mesh
         playerMesh.SetActive(false);
 
+        dashEffectUp.transform.position = transform.position;
+        dashEffectUp.transform.LookAt(dashTarget.transform.position);
+        dashEffectUp.GetComponentInChildren<VisualEffect>().Play();
+
+        dashEffectDown.transform.position = dashTarget.transform.position;
+        dashEffectDown.transform.LookAt(transform.position);
+        dashEffectDown.GetComponentInChildren<VisualEffect>().Play();
+
         yield return new WaitForSeconds(dashDelay);
 
         //Move player to dash target and reenable player mesh
@@ -147,6 +163,11 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         playerMesh.SetActive(true);
 
         isDashing = false;
+
+        yield return new WaitForSeconds(0.3f);
+
+        dashEffectUp.GetComponentInChildren<VisualEffect>().Stop();
+        dashEffectDown.GetComponentInChildren<VisualEffect>().Stop();
 
         yield return null;
     }
