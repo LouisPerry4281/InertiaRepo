@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 using Input = UnityEngine.Input;
 
 public class PlayerRigidbodyMovement : MonoBehaviour
@@ -17,22 +16,23 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [Range(0.0f, 0.3f)]
     [SerializeField] float RotationSmoothTime = 0.12f;
 
+    [Header("Dash")]
+    public bool dashInput = false;
+    public bool isDashing = false;
+    [SerializeField] float dashDistance;
+    [SerializeField] float dashDelay;
+    [SerializeField] LayerMask dashCollisionLayers;
+    [SerializeField] GameObject dashTarget;
+
     [Header("Juice")]
     [SerializeField] float currentJuice;
     [SerializeField] float maxJuice;
 
     [Header("References")]
     Rigidbody rb;
+    [SerializeField] GameObject playerMesh;
 
     Vector2 moveInput;
-
-    //
-    //
-    // For a dash, shoot raycast forward set distance (Scales off juice) then place object at the end (or where it collides)
-    //
-    //
-
-
 
     private void Start()
     {
@@ -47,18 +47,30 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
+    private void OnDash(InputValue value)
+    {
+        dashInput = value.isPressed;
+    }
+
+    private void Update()
+    {
+        if (dashInput && !isDashing)
+        {
+            StartCoroutine(PlayerDash());
+        }
+    }
+
     void FixedUpdate()
     {
         MovePlayer();
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            transform.position += transform.forward * 10;
-        }
     }
 
     private void MovePlayer()
     {
+        //Disable movement when dashing
+        if (isDashing)
+            return;
+
         //Calculates the effect of juice on speed
         float speedMultiplier = (maxJuice - currentJuice) * 0.5f + currentJuice * 1.5f;
         speedMultiplier *= movementSpeed;
@@ -87,5 +99,50 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
         //Applies the target velocity with move speed modifier
         rb.velocity = targetDirection * speedMultiplier;
+    }
+
+    IEnumerator PlayerDash()
+    {
+        dashInput = false;
+        isDashing = true;
+
+        //Grabs the current direction of player
+        Vector3 moveDir = rb.velocity.normalized;
+        //If player is not moving, dash forward
+        if (moveDir == Vector3.zero)
+            moveDir = transform.forward;
+
+        //Stops current velocity
+        rb.velocity = Vector3.zero;
+
+        //Fires raycast in dash direction
+        RaycastHit hit;
+        bool dashRayBlocked = false;
+        dashRayBlocked = Physics.Raycast(transform.position, moveDir, out hit, dashDistance, dashCollisionLayers);
+
+        //If dash hits an obstacle, place the dash target in front of the obstacle
+        if (dashRayBlocked)
+        {
+            dashTarget.transform.position = hit.point;
+        }
+
+        //If dash is unobstructed, place the dash target at the end of the ray
+        else
+        {
+            dashTarget.transform.position = transform.position + moveDir.normalized * dashDistance;
+        }
+
+        //Hide player mesh
+        playerMesh.SetActive(false);
+
+        yield return new WaitForSeconds(dashDelay);
+
+        //Move player to dash target and reenable player mesh
+        transform.position = dashTarget.transform.position;
+        playerMesh.SetActive(true);
+
+        isDashing = false;
+
+        yield return null;
     }
 }
