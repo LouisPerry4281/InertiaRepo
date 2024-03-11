@@ -30,6 +30,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
     [Header("References")]
     Rigidbody rb;
+    Animator anim;
     [SerializeField] GameObject playerMesh;
 
     Vector2 moveInput;
@@ -40,6 +41,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         Cursor.visible = false;
 
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnMove(InputValue value)
@@ -54,11 +56,14 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
     private void Update()
     {
+        HandleAnimation();
+
         if (dashInput && !isDashing)
         {
             StartCoroutine(PlayerDash());
         }
     }
+
 
     void FixedUpdate()
     {
@@ -144,5 +149,10 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         isDashing = false;
 
         yield return null;
+    }
+
+    private void HandleAnimation()
+    {
+        anim.SetFloat("Locomotion", rb.velocity.magnitude);
     }
 }
