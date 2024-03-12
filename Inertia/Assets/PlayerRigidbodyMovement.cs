@@ -148,11 +148,13 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         //Hide player mesh
         playerMesh.SetActive(false);
 
-        dashEffectUp.transform.position = transform.position;
+        float verticalOffset = 1;
+
+        dashEffectUp.transform.position = new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z);
         dashEffectUp.transform.LookAt(dashTarget.transform.position);
         dashEffectUp.GetComponentInChildren<VisualEffect>().Play();
 
-        dashEffectDown.transform.position = dashTarget.transform.position;
+        dashEffectDown.transform.position = new Vector3(dashTarget.transform.position.x, dashTarget.transform.position.y + verticalOffset, dashTarget.transform.position.z);
         dashEffectDown.transform.LookAt(transform.position);
         dashEffectDown.GetComponentInChildren<VisualEffect>().Play();
 
