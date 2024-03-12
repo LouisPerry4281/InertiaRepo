@@ -72,6 +72,11 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         }
     }
 
+    public void JuiceChange(float juiceAmount)
+    {
+        currentJuice += juiceAmount;
+        currentJuice = Mathf.Clamp(currentJuice, 0, maxJuice);
+    }
 
     void FixedUpdate()
     {

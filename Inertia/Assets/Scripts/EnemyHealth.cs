@@ -10,11 +10,11 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField] GameObject hitEffect;
 
-    PlayerMovement playerMovement;
+    GameManager gameManager;
 
     private void Start()
     {
-        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public void InitialiseDamage(float damageToTake, float damageTimer)
@@ -28,8 +28,10 @@ public class EnemyHealth : MonoBehaviour
         isVulnerable = false;
 
         health -= damageToTake;
-        HealthCheck();
+        if (HealthCheck())
+            yield return null;
 
+        print("hit");
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
 
         yield return new WaitForSeconds(damageTimer);
@@ -37,18 +39,14 @@ public class EnemyHealth : MonoBehaviour
         isVulnerable = true;
     }
 
-    private void HealthCheck()
+    private bool HealthCheck()
     {
         if (health <= 0)
         {
-            playerMovement.JuiceChange(0.2f);
-
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<BoxCollider>().enabled = false;
-
-            playerMovement.gameObject.GetComponent<PlayerCombat>().RemoveEnemiesFromList(gameObject);
-
-            Destroy(gameObject);
+            gameManager.KillEnemy(gameObject);
+            return true;
         }
+
+        return false;
     }
 }
