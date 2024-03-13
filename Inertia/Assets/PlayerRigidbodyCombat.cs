@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerRigidbodyCombat : MonoBehaviour
 {
     PlayerRigidbodyMovement movement;
+    Animator anim;
 
     [SerializeField] Collider hitBox;
 
@@ -15,18 +16,18 @@ public class PlayerRigidbodyCombat : MonoBehaviour
     public float attackTimer;
 
     public bool attackInput;
-    bool isAttacking;
+    public bool isAttacking;
 
     private void Start()
     {
         movement = GetComponent<PlayerRigidbodyMovement>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
         if (attackInput)
         {
-            print("Att Input");
             if (CanAttack() && !isAttacking)
             {
                 StartCoroutine(Attack());
@@ -34,7 +35,7 @@ public class PlayerRigidbodyCombat : MonoBehaviour
         }
 
         else
-            attackInput = false; print("no Att");
+            attackInput = false;
     }
 
     IEnumerator Attack()
@@ -43,6 +44,8 @@ public class PlayerRigidbodyCombat : MonoBehaviour
         isAttacking = true;
 
         hitBox.enabled = true;
+
+        anim.Play("Attack");
 
         yield return new WaitForSeconds(attackTimer);
 

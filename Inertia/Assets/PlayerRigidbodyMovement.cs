@@ -36,6 +36,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [Header("References")]
     Rigidbody rb;
     Animator anim;
+    PlayerRigidbodyCombat combatScript;
     [SerializeField] GameObject playerMesh;
 
     Vector2 moveInput;
@@ -47,6 +48,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        combatScript = GetComponent<PlayerRigidbodyCombat>();
 
         dashEffectUp.GetComponentInChildren<VisualEffect>().Stop();
         dashEffectDown.GetComponentInChildren<VisualEffect>().Stop();
@@ -181,6 +183,11 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
     private void HandleAnimation()
     {
+        if (combatScript.isAttacking)
+        {
+            return;
+        }
+
         anim.SetFloat("Locomotion", rb.velocity.magnitude);
     }
 }

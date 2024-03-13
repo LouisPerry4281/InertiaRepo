@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 655220421389832541}
   - component: {fileID: 3426440643511425432}
   - component: {fileID: 5704146310957501784}
+  - component: {fileID: 2401005739224190503}
   m_Layer: 6
   m_Name: B.O.B
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,6 +147,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d70fdd2603e7e47954e6e8a23d4c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 40
   hitEffect: {fileID: 1202064364724622792, guid: 0dc68f53284e3fa4ea5974bddeaa6540,
     type: 3}
+--- !u!114 &2401005739224190503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041337856614909461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14a102f961dcd2438140ce02483956f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStance: 0
