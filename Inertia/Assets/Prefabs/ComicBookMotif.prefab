@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8380119363222195773}
   - component: {fileID: 6138736168057417545}
   - component: {fileID: -474993941904350270}
-  m_Layer: 0
+  - component: {fileID: 7433112525380320739}
+  m_Layer: 8
   m_Name: ComicBookMotif
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,3 +126,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cleanupTimer: 2
+--- !u!114 &7433112525380320739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202064364724622792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ad4fb7681abdd4d9fcfe8be1523663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

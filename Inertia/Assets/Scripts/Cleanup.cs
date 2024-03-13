@@ -11,6 +11,7 @@ public class Cleanup : MonoBehaviour
         Invoke("DestroyMe", cleanupTimer);
     }
 
+
     void DestroyMe()
     {
         Destroy(gameObject);
