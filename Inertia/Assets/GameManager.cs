@@ -18,4 +18,9 @@ public class GameManager : MonoBehaviour
         //Adds 20% juice when an enemy is defeated
         player.GetComponent<PlayerRigidbodyMovement>().JuiceChange(0.2f);
     }
+
+    public void KillPlayer()
+    {
+        print("ded");
+    }
 }
