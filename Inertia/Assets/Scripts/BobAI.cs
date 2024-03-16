@@ -10,9 +10,12 @@ public class BobAI : MonoBehaviour
     NavMeshAgent agent;
 
     [SerializeField] float attackDistance;
+    [SerializeField] float maxAttackDistance;
     [SerializeField] float meleeRange;
 
-    public bool readyToAttack;
+
+    bool readyToAttack;
+    bool isAttacking;
 
     float yet;
     const float interval = 1.0f;
@@ -77,13 +80,20 @@ public class BobAI : MonoBehaviour
 
     void AttackStance()
     {
-        print("Att");
-        agent.SetDestination(player.position);
-        agent.isStopped = false;
-
-        if (Vector3.Distance(player.position, transform.position) < meleeRange)
+        if (!isAttacking)
         {
-            print("Swing");
+            agent.SetDestination(player.position);
+            agent.isStopped = false;
+        }
+
+        if (Vector3.Distance(player.position, transform.position) < meleeRange && !isAttacking)
+        {
+            StartCoroutine(Attack());
+        }
+
+        else if (Vector3.Distance(player.position, transform.position) > maxAttackDistance)
+        {
+            currentStance = StanceSelector.Pursuit;
         }
     }
 
@@ -109,6 +119,27 @@ public class BobAI : MonoBehaviour
             agent.isStopped = false;
             currentStance = StanceSelector.Attack;
         }
+    }
+
+    IEnumerator Attack()
+    {
+        agent.isStopped = true;
+        isAttacking = true;
+
+        yield return new WaitForSeconds(1);
+
+        agent.isStopped = false;
+        agent.SetDestination((player.transform.position - transform.position).normalized * 5f);
+        agent.isStopped = false;
+        print(agent.hasPath);
+
+        yield return new WaitForSeconds(20);
+
+        currentStance = StanceSelector.Pursuit;
+
+        agent.isStopped = false;
+        isAttacking = false;
+        
     }
 
     private void OnDrawGizmos()
