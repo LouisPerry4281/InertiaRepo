@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d70fdd2603e7e47954e6e8a23d4c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  health: 50
   hitEffect: {fileID: 1202064364724622792, guid: 0dc68f53284e3fa4ea5974bddeaa6540,
     type: 3}
 --- !u!114 &2401005739224190503
@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDistance: 10
+  meleeRange: 3
+  readyToAttack: 0
+  chanceToAttack: 10
   currentStance: 1
 --- !u!195 &6784471790577528355
 NavMeshAgent:
