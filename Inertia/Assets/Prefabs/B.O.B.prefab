@@ -168,8 +168,8 @@ MonoBehaviour:
   destinationCube: {fileID: 0}
   attackDistance: 10
   maxAttackDistance: 12
-  meleeRange: 3
-  chanceToAttack: 10
+  meleeRange: 2.5
+  chanceToAttack: 5
   currentStance: 1
 --- !u!195 &6784471790577528355
 NavMeshAgent:
@@ -185,7 +185,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 8243592962946537397}
   - component: {fileID: 221405573609526045}
   - component: {fileID: 4333228805690474482}
+  - component: {fileID: 1743236141686485073}
   m_Layer: 7
   m_Name: '"Weapon"'
   m_TagString: Untagged
@@ -319,8 +320,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 1, y: 5, z: 5}
+  m_Size: {x: 1.31, y: 5, z: 5}
   m_Center: {x: 0.000000059604645, y: 0, z: 0.00000008940697}
+--- !u!114 &1743236141686485073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823844747163346825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aceb75d3a3c5dc40bab085d875c76ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
 --- !u!1 &9035674490036547893
 GameObject:
   m_ObjectHideFlags: 0

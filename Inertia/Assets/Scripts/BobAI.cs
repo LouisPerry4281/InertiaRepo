@@ -144,7 +144,7 @@ public class BobAI : MonoBehaviour
         Vector3 direction = (player.transform.position - transform.position).normalized;
         agent.SetDestination(transform.position + direction * -10);
 
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(3);
 
         currentStance = StanceSelector.Pursuit;
 
