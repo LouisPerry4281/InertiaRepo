@@ -8,6 +8,7 @@ public class BobAI : MonoBehaviour
 {
     Transform player;
     NavMeshAgent agent;
+    Animator anim;
 
     [SerializeField] GameObject destinationCube;
 
@@ -27,6 +28,7 @@ public class BobAI : MonoBehaviour
     {
         player = GameObject.Find("Player").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
 
     public enum StanceSelector
@@ -133,6 +135,8 @@ public class BobAI : MonoBehaviour
     {
         agent.isStopped = true;
         isAttacking = true;
+
+        anim.Play("Attack");
 
         yield return new WaitForSeconds(1);
 
