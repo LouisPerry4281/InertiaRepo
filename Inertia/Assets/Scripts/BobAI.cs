@@ -9,10 +9,11 @@ public class BobAI : MonoBehaviour
     Transform player;
     NavMeshAgent agent;
 
+    [SerializeField] GameObject destinationCube;
+
     [SerializeField] float attackDistance;
     [SerializeField] float maxAttackDistance;
     [SerializeField] float meleeRange;
-
 
     bool readyToAttack;
     bool isAttacking;
@@ -39,6 +40,13 @@ public class BobAI : MonoBehaviour
 
     private void Update()
     {
+        //TESTING CODE//
+        if (destinationCube != null)
+        {
+            destinationCube.transform.position = agent.destination;
+        }
+        //TESTING CODE//
+
         switch (currentStance)
         {
             case StanceSelector.Idle:
@@ -129,11 +137,10 @@ public class BobAI : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         agent.isStopped = false;
-        agent.SetDestination((player.transform.position - transform.position).normalized * 5f);
-        agent.isStopped = false;
-        print(agent.hasPath);
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        agent.SetDestination(transform.position + direction * -10);
 
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(10);
 
         currentStance = StanceSelector.Pursuit;
 
