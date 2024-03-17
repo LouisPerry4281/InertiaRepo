@@ -88,7 +88,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     private void MovePlayer()
     {
         //Disable movement when dashing
-        if (isDashing)
+        if (isDashing || combatScript.isAttacking)
             return;
 
         //Calculates the effect of juice on speed

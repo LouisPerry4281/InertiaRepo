@@ -43,11 +43,16 @@ public class PlayerRigidbodyCombat : MonoBehaviour
         attackInput = false;
         isAttacking = true;
 
+        //Disables player and enemy collisions
+        Physics.IgnoreLayerCollision(6, 7, true);
+
         hitBox.enabled = true;
 
         anim.Play("Attack");
 
         yield return new WaitForSeconds(attackTimer);
+
+        Physics.IgnoreLayerCollision(6, 7, false);
 
         hitBox.enabled = false;
 
