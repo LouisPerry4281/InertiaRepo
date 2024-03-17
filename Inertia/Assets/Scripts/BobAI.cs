@@ -9,8 +9,9 @@ public class BobAI : MonoBehaviour
     Transform player;
     NavMeshAgent agent;
     Animator anim;
+    ScriptSequenceController sequence;
 
-    [SerializeField] GameObject destinationCube;
+    [SerializeField] GameObject exclamationMotif;
 
     [SerializeField] float attackDistance;
     [SerializeField] float maxAttackDistance;
@@ -18,6 +19,7 @@ public class BobAI : MonoBehaviour
 
     bool readyToAttack;
     bool isAttacking;
+    bool isSwapping;
 
     float yet;
     const float interval = 1.0f;
@@ -29,6 +31,7 @@ public class BobAI : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        sequence = FindAnyObjectByType<ScriptSequenceController>();
     }
 
     public enum StanceSelector
@@ -42,13 +45,6 @@ public class BobAI : MonoBehaviour
 
     private void Update()
     {
-        //TESTING CODE//
-        if (destinationCube != null)
-        {
-            destinationCube.transform.position = agent.destination;
-        }
-        //TESTING CODE//
-
         switch (currentStance)
         {
             case StanceSelector.Idle:
@@ -66,7 +62,10 @@ public class BobAI : MonoBehaviour
 
     void IdleStance()
     {
-        print("Idle");
+        if (sequence.sequenceNumber == 2 && !isSwapping)
+        {
+            StartCoroutine(CombatStart());
+        }
     }
 
     void PursueStance()
@@ -151,6 +150,19 @@ public class BobAI : MonoBehaviour
         agent.isStopped = false;
         isAttacking = false;
         
+    }
+
+    IEnumerator CombatStart()
+    {
+        isSwapping = true;
+
+        Instantiate(exclamationMotif, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
+
+        yield return new WaitForSeconds(1);
+
+        isSwapping = false;
+
+        currentStance = StanceSelector.Pursuit;
     }
 
     private void OnDrawGizmos()

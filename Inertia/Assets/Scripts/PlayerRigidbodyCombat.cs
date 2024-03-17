@@ -12,8 +12,10 @@ public class PlayerRigidbodyCombat : MonoBehaviour
 
     [SerializeField] Collider hitBox;
 
-    public float damage;
+    public float baseDamage;
     public float attackTimer;
+
+    public float damage;
 
     public bool attackInput;
     public bool isAttacking;
@@ -26,6 +28,8 @@ public class PlayerRigidbodyCombat : MonoBehaviour
 
     private void Update()
     {
+        damage = (baseDamage * movement.currentJuice) + 30;
+
         if (attackInput)
         {
             if (CanAttack() && !isAttacking)

@@ -30,7 +30,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [SerializeField] GameObject dashEffectDown;
 
     [Header("Juice")]
-    [SerializeField] float currentJuice;
+    public float currentJuice;
     [SerializeField] float maxJuice;
 
     [Header("References")]

@@ -21,16 +21,6 @@ public class PlayerRigidbodyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    private void Update()
-    {
-        //TESTING//
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            InitializeDamage(2);
-        }
-        //TESTING//
-    }
-
     public void InitializeDamage(float damageToTake)
     {
         if (!isVulnerable)
@@ -45,7 +35,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
             gameManager.KillPlayer();
         }
 
-        playerMovement.JuiceChange(-0.2f);
+        playerMovement.JuiceChange(-0.4f);
 
         isVulnerable = false;
         Invoke("ReVulnerable", invulnFrames);
