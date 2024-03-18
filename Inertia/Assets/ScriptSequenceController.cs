@@ -16,6 +16,8 @@ public class ScriptSequenceController : MonoBehaviour
 
     [SerializeField] GameObject endZone;
 
+    [SerializeField] GameObject Bay02;
+
     public void KillEnemy()
     {
         enemyCount--;
@@ -31,6 +33,14 @@ public class ScriptSequenceController : MonoBehaviour
     private void StartEndSequence()
     {
         endZone.SetActive(true);
+        Bay02.SetActive(true);
+
+        Invoke("DisableText", 5);
+    }
+
+    void DisableText()
+    {
+        Bay02.SetActive(false);
     }
 
     public void SetSequence(int sequenceToSet)
