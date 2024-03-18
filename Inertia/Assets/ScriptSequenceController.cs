@@ -18,6 +18,8 @@ public class ScriptSequenceController : MonoBehaviour
 
     [SerializeField] GameObject Bay02;
 
+    [SerializeField] GameObject ExitBay;
+
     public void KillEnemy()
     {
         enemyCount--;
@@ -34,6 +36,9 @@ public class ScriptSequenceController : MonoBehaviour
     {
         endZone.SetActive(true);
         Bay02.SetActive(true);
+
+        //Door Open
+        ExitBay.GetComponent<Animator>().SetTrigger("Open");
 
         Invoke("DisableText", 5);
     }
