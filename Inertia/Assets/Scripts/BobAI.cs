@@ -156,7 +156,7 @@ public class BobAI : MonoBehaviour
     {
         isSwapping = true;
 
-        Instantiate(exclamationMotif, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
+        Instantiate(exclamationMotif, new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z), Quaternion.identity);
 
         yield return new WaitForSeconds(1);
 
