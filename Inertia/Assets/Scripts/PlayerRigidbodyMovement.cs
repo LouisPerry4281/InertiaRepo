@@ -10,6 +10,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float movementSpeed;
+    Vector3 targetDirection;
 
     [Header("Rotation")]
     float rotationVelocity;
@@ -115,7 +116,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
             return;
         }
 
-        Vector3 targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+        targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
 
         //Applies the target velocity with move speed modifier
         rb.velocity = targetDirection * speedMultiplier;
@@ -127,7 +128,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         isDashing = true;
 
         //Grabs the current direction of player
-        Vector3 moveDir = rb.velocity.normalized;
+        Vector3 moveDir = targetDirection;
         //If player is not moving, dash forward
         if (moveDir == Vector3.zero)
             moveDir = transform.forward;
