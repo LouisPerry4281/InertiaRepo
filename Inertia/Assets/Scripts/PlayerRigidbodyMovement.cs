@@ -21,8 +21,10 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [Header("Dash")]
     public bool dashInput = false;
     public bool isDashing = false;
+    bool canDash = true;
     [SerializeField] float dashDistance;
     [SerializeField] float dashDelay;
+    [SerializeField] float dashCooldown;
     [SerializeField] LayerMask dashCollisionLayers;
     [SerializeField] GameObject dashTarget;
 
@@ -69,10 +71,13 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     {
         HandleAnimation();
 
-        if (dashInput && !isDashing)
+        if (dashInput && !isDashing && canDash)
         {
             StartCoroutine(PlayerDash());
         }
+
+        else
+            dashInput = false;
     }
 
     public void JuiceChange(float juiceAmount)
@@ -88,10 +93,6 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        //Disable movement when dashing
-        if (isDashing || combatScript.isAttacking)
-            return;
-
         //Calculates the effect of juice on speed
         float speedMultiplier = (maxJuice - currentJuice) * 0.5f + currentJuice * 1.5f;
         speedMultiplier *= movementSpeed;
@@ -118,6 +119,10 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
         targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
 
+        //Disable movement when dashing
+        if (isDashing /*|| combatScript.isAttacking*/)
+            return;
+
         //Applies the target velocity with move speed modifier
         rb.velocity = targetDirection * speedMultiplier;
     }
@@ -126,6 +131,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     {
         dashInput = false;
         isDashing = true;
+        canDash = false;
 
         //Grabs the current direction of player
         Vector3 moveDir = targetDirection;
@@ -166,9 +172,17 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         dashEffectDown.transform.LookAt(transform.position);
         dashEffectDown.GetComponentInChildren<VisualEffect>().Play();
 
-        yield return new WaitForSeconds(dashDelay);
+        //Slowly move the invisible player to the dash location
+        float elapsedTime = 0;
+        while (elapsedTime < dashDelay)
+        {
+            transform.position = Vector3.Lerp(transform.position, dashTarget.transform.position, (elapsedTime/dashDelay));
+            elapsedTime += Time.deltaTime;
 
-        //Move player to dash target and reenable player mesh
+            yield return null;
+        }
+
+        //Hard move player to dash target and reenable player mesh
         transform.position = dashTarget.transform.position;
         playerMesh.SetActive(true);
 
@@ -178,6 +192,10 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
         dashEffectUp.GetComponentInChildren<VisualEffect>().Stop();
         dashEffectDown.GetComponentInChildren<VisualEffect>().Stop();
+
+        yield return new WaitForSeconds(dashCooldown);
+
+        canDash = true;
 
         yield return null;
     }
