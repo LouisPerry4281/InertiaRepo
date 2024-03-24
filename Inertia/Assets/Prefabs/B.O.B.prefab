@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
+  knockbackForce: 10
   hitEffect: {fileID: 1202064364724622792, guid: 0dc68f53284e3fa4ea5974bddeaa6540,
     type: 3}
 --- !u!114 &2401005739224190503
