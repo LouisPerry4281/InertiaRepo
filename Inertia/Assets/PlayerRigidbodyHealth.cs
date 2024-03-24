@@ -8,7 +8,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
     GameManager gameManager;
 
     [SerializeField] float maxHealth;
-    public float currentHealth; ///
+    public float currentHealth;
 
     [SerializeField] float invulnFrames;
     bool isVulnerable = true;

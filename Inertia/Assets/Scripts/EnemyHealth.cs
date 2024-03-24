@@ -36,10 +36,17 @@ public class EnemyHealth : MonoBehaviour
         isVulnerable = false;
 
         //Hitstop Stuff
-        playerAnimator.speed = 0;
+        /*playerAnimator.speed = 0;
         playerAnimator.GetComponentInParent<Rigidbody>().velocity = Vector3.zero;
         yield return new WaitForSeconds(0.2f);
-        playerAnimator.speed = 1;
+        playerAnimator.speed = 1;*/
+
+        Time.timeScale = 0.1f;
+        playerAnimator.GetComponentInParent<Rigidbody>().velocity = Vector3.zero;
+        yield return new WaitForSeconds(0.015f);
+        Time.timeScale = 1;
+
+        Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
 
         //agent.updatePosition = false;
         //agent.velocity = Vector3.zero;
@@ -50,15 +57,14 @@ public class EnemyHealth : MonoBehaviour
 
         Knockback();
 
-        //yield return new WaitForSeconds(0.5f);
-
-        //agent.enabled = true;
-
         health -= damageToTake;
         if (HealthCheck())
             yield return null;
 
-        Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+
+        rb.isKinematic = true;
+        agent.enabled = true;
 
         yield return new WaitForSeconds(damageTimer);
 
@@ -80,6 +86,7 @@ public class EnemyHealth : MonoBehaviour
     {
         print("YEET");  
         Vector3 direction = (playerAnimator.transform.position - transform.position).normalized;
+        direction = new Vector3(direction.x, 0, direction.z);
         rb.AddForce(-direction * knockbackForce, ForceMode.Impulse);
     }
 }
