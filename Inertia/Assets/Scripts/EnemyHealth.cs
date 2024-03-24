@@ -12,10 +12,14 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField] GameObject hitEffect;
 
+    [SerializeField] Material baseMat;
+    [SerializeField] Material flashMat;
+
     Rigidbody rb;
     GameManager gameManager;
     Animator playerAnimator;
     NavMeshAgent agent;
+    MeshRenderer meshRenderer;
 
     private void Start()
     {
@@ -23,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
         playerAnimator = GameObject.Find("Neutral Idle").GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
     public void InitialiseDamage(float damageToTake, float damageTimer)
@@ -47,6 +52,13 @@ public class EnemyHealth : MonoBehaviour
         Time.timeScale = 1;
 
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+
+        //Color baseMatColor = baseMat.color;
+        //baseMat.color = Color.white;
+
+        //yield return new WaitForSeconds(0.1f);
+
+        //baseMat.color = baseMatColor;
 
         //agent.updatePosition = false;
         //agent.velocity = Vector3.zero;
