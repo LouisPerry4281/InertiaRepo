@@ -51,6 +51,8 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(0.015f);
         Time.timeScale = 1;
 
+        CinemachineShake.Instance.ShakeCamera(2, .1f);
+
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
 
         //Color baseMatColor = baseMat.color;
