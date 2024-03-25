@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 925745050461189727}
   - component: {fileID: -300131297297246464}
   - component: {fileID: 2202345917468652631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ExclamationMotif
   m_TagString: Untagged
   m_Icon: {fileID: 0}
