@@ -100,8 +100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  knockbackForce: 2
+  knockbackForce: 5
   hitEffect: {fileID: 1202064364724622792, guid: 0dc68f53284e3fa4ea5974bddeaa6540,
+    type: 3}
+  hitParticles: {fileID: 3701577153704319460, guid: 74a9897ff9335584884f226554682999,
     type: 3}
   baseMat: {fileID: 5561349426305759274, guid: f6722f11d58a33e4c9d97768895812d7, type: 3}
   flashMat: {fileID: 2100000, guid: 03b350163a0750145aece6e3d69f1d19, type: 2}

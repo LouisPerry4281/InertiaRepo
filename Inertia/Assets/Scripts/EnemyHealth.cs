@@ -42,20 +42,15 @@ public class EnemyHealth : MonoBehaviour
         isVulnerable = false;
 
         //Hitstop Stuff
-        /*playerAnimator.speed = 0;
+        playerAnimator.speed = 0;
         playerAnimator.GetComponentInParent<Rigidbody>().velocity = Vector3.zero;
-        yield return new WaitForSeconds(0.2f);
-        playerAnimator.speed = 1;*/
-
-        Time.timeScale = 0.1f;
-        playerAnimator.GetComponentInParent<Rigidbody>().velocity = Vector3.zero;
-        yield return new WaitForSeconds(0.015f);
-        Time.timeScale = 1;
+        yield return new WaitForSeconds(0.1f);
+        playerAnimator.speed = 1;
 
         CinemachineShake.Instance.ShakeCamera(2, .1f);
 
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-        Instantiate(hitParticles, transform.position, Quaternion.identity);
+        Instantiate(hitParticles, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.Euler(-90, 0, 0));
 
         //Color baseMatColor = baseMat.color;
         //baseMat.color = Color.white;
@@ -64,9 +59,9 @@ public class EnemyHealth : MonoBehaviour
 
         //baseMat.color = baseMatColor;
 
-        //agent.updatePosition = false;
-        //agent.velocity = Vector3.zero;
-        //agent.ResetPath();
+        agent.updatePosition = false;
+        agent.velocity = Vector3.zero;
+        agent.ResetPath();
 
         rb.isKinematic = false;
         agent.enabled = false;
