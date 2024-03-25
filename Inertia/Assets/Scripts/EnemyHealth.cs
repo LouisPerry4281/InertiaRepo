@@ -76,6 +76,7 @@ public class EnemyHealth : MonoBehaviour
 
         rb.isKinematic = true;
         agent.enabled = true;
+        agent.updatePosition = true;
 
         yield return new WaitForSeconds(damageTimer);
 

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public int enemyCount;
 
+    public bool hasStartedCombat = false;
+
     private void Start()
     {
         player = GameObject.Find("Player");
