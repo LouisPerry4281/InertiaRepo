@@ -9,7 +9,6 @@ public class BobAI : MonoBehaviour
     Transform player;
     NavMeshAgent agent;
     Animator anim;
-    ScriptSequenceController sequence;
 
     [SerializeField] GameObject exclamationMotif;
 
@@ -31,7 +30,6 @@ public class BobAI : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        sequence = FindAnyObjectByType<ScriptSequenceController>();
     }
 
     public enum StanceSelector
@@ -62,7 +60,7 @@ public class BobAI : MonoBehaviour
 
     void IdleStance()
     {
-        if (sequence.sequenceNumber == 2 && !isSwapping)
+        if (!isSwapping)
         {
             StartCoroutine(CombatStart());
         }

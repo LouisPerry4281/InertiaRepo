@@ -7,12 +7,11 @@ public class GameManager : MonoBehaviour
 {
     GameObject player;
 
-    ScriptSequenceController sequenceController;
+    public int enemyCount;
 
     private void Start()
     {
         player = GameObject.Find("Player");
-        sequenceController = FindAnyObjectByType<ScriptSequenceController>();
     }
 
     public void KillEnemy(GameObject enemyToKill)
@@ -24,7 +23,7 @@ public class GameManager : MonoBehaviour
 
         Destroy(enemyToKill);
 
-        sequenceController.KillEnemy();
+        enemyCount--;
 
         //Adds 20% juice when an enemy is defeated
         player.GetComponent<PlayerRigidbodyMovement>().JuiceChange(0.4f);
