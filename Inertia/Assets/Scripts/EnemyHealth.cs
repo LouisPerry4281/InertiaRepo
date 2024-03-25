@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
     bool isVulnerable = true;
 
     [SerializeField] GameObject hitEffect;
+    [SerializeField] GameObject hitParticles;
 
     [SerializeField] Material baseMat;
     [SerializeField] Material flashMat;
@@ -54,6 +55,7 @@ public class EnemyHealth : MonoBehaviour
         CinemachineShake.Instance.ShakeCamera(2, .1f);
 
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        Instantiate(hitParticles, transform.position, Quaternion.identity);
 
         //Color baseMatColor = baseMat.color;
         //baseMat.color = Color.white;
