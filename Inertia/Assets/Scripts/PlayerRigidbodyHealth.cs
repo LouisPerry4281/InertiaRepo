@@ -35,7 +35,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
             gameManager.KillPlayer();
         }
 
-        playerMovement.JuiceChange(-0.4f);
+        playerMovement.JuiceChange(-0.2f);
 
         isVulnerable = false;
         Invoke("ReVulnerable", invulnFrames);

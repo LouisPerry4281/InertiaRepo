@@ -84,6 +84,8 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     {
         currentJuice += juiceAmount;
         currentJuice = Mathf.Clamp(currentJuice, 0, maxJuice);
+
+        FindAnyObjectByType<JuiceBarScript>().SetJuice(currentJuice);
     }
 
     void FixedUpdate()
