@@ -105,6 +105,8 @@ MonoBehaviour:
     type: 3}
   hitParticles: {fileID: 3701577153704319460, guid: 74a9897ff9335584884f226554682999,
     type: 3}
+  sparkVFX: {fileID: 5275830050310182675, guid: 04688ba0f3924bb41b0c960d9084a529,
+    type: 3}
   baseMat: {fileID: 5561349426305759274, guid: f6722f11d58a33e4c9d97768895812d7, type: 3}
   flashMat: {fileID: 2100000, guid: 03b350163a0750145aece6e3d69f1d19, type: 2}
 --- !u!114 &2401005739224190503

@@ -3392,7 +3392,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.05000000074505806,"y":0.30000001192092898,"z":1.0}'
+      m_SerializableObject: '{"x":0.10000000149011612,"y":0.6000000238418579,"z":1.0}'
     m_Space: -1
   m_Property:
     name: A
@@ -3528,7 +3528,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.014999999664723874,"y":0.800000011920929,"z":1.0}'
+      m_SerializableObject: '{"x":0.029999999329447748,"y":1.600000023841858,"z":1.0}'
     m_Space: -1
   m_Property:
     name: B
@@ -4599,7 +4599,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1803, y: 655}
+  m_UIPosition: {x: 1648, y: 808}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

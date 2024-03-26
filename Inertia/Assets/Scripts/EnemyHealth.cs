@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField] GameObject hitEffect;
     [SerializeField] GameObject hitParticles;
+    [SerializeField] GameObject sparkVFX;
 
     [SerializeField] Material baseMat;
     [SerializeField] Material flashMat;
@@ -51,6 +52,7 @@ public class EnemyHealth : MonoBehaviour
 
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
         Instantiate(hitParticles, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.Euler(-90, 0, 0));
+        Instantiate(sparkVFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
 
         //Color baseMatColor = baseMat.color;
         //baseMat.color = Color.white;
