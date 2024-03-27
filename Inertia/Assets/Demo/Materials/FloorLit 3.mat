@@ -126,7 +126,7 @@ Material:
     - _NoiseColour: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
     - _Offset: {r: 0, g: 0.802, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TextureColour: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0}
+    - _TextureColour: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 48.53, g: 19.5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2017993304656585474
