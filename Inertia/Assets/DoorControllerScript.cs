@@ -61,11 +61,11 @@ public class DoorControllerScript : MonoBehaviour
 
     private void SpawnDoorLogic()
     {
-
+        animator.SetTrigger("DoorOpen");
     }
 
     private void ExitDoorLogic()
     {
-
+        //Null For Now
     }
 }

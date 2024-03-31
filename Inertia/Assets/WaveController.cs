@@ -14,8 +14,8 @@ public class WaveController : MonoBehaviour
     SequenceController sc;
 
     int enemiesLeftToSpawn;
-    int currentWave = 0;
-
+    public int currentWave = 0;
+    
     float spawnIntervalTimer;
     [SerializeField] float spawnInterval;
 
@@ -58,7 +58,7 @@ public class WaveController : MonoBehaviour
     {
         currentWave++;
 
-        if (currentWave == 2 && GameManager.enemyCount <= 5)
+        if (currentWave <= 2 && GameManager.enemyCount <= 5)
             sc.IncrementSequence();
 
         if (currentWave >= 3)

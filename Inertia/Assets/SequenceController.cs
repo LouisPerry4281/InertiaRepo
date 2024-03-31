@@ -10,21 +10,30 @@ public class SequenceController : MonoBehaviour
     // 3 - Exit Unlocked
     public static int sequenceIndex = 0;
 
+    GameObject endTrigger;
+
     [SerializeField] GameObject frontDoor;
 
     [SerializeField] GameObject bay1Door;
     [SerializeField] GameObject bay2Door;
     [SerializeField] GameObject bay3Door;
 
-    private void Update()
+    private void Start()
     {
-        print(sequenceIndex);
+        endTrigger = FindAnyObjectByType<EndTrigger>().gameObject;
+        endTrigger.SetActive(false);
     }
 
     public void IncrementSequence()
     {
         sequenceIndex++;
-        Invoke(nameof(StartCombat), 2.0f);
+
+        if (sequenceIndex >= 4)
+        {
+            endTrigger.SetActive(true);
+        }
+
+        Invoke(nameof(StartCombat), 1.0f);
     }
 
     void StartCombat()

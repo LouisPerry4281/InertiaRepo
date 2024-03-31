@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class GameManager : MonoBehaviour
 {
     GameObject player;
+    [SerializeField] GameObject endUI;
 
     public static int enemyCount;
 
@@ -29,6 +30,14 @@ public class GameManager : MonoBehaviour
 
         //Adds 20% juice when an enemy is defeated
         player.GetComponent<PlayerRigidbodyMovement>().JuiceChange(0.4f);
+    }
+
+    public void EndGame()
+    {
+        endUI.SetActive(true);
+        player.GetComponent<PlayerRigidbodyMovement>().enabled = false;
+        player.GetComponent<PlayerRigidbodyHealth>().enabled = false;
+        player.GetComponent<PlayerRigidbodyCombat>().enabled = false;
     }
 
     public void KillPlayer()
