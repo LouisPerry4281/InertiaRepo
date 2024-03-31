@@ -16,8 +16,19 @@ public class SequenceController : MonoBehaviour
     [SerializeField] GameObject bay2Door;
     [SerializeField] GameObject bay3Door;
 
-    public static void IncrementSequence()
+    private void Update()
+    {
+        print(sequenceIndex);
+    }
+
+    public void IncrementSequence()
     {
         sequenceIndex++;
+        Invoke(nameof(StartCombat), 2.0f);
+    }
+
+    void StartCombat()
+    {
+        GameManager.hasStartedCombat = true;
     }
 }

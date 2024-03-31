@@ -62,7 +62,7 @@ public class BobAI : MonoBehaviour
 
     void IdleStance()
     {
-        if (!isSwapping && gm.hasStartedCombat)
+        if (!isSwapping && GameManager.hasStartedCombat)
         {
             StartCoroutine(CombatStart());
         }

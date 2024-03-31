@@ -7,6 +7,8 @@ public class DoorControllerScript : MonoBehaviour
 {
     Animator animator;
 
+    SequenceController sc;
+
     // 0 - Front Door
     // 1 - Generic Spawn Door
     // 2 - Exit Door
@@ -17,7 +19,8 @@ public class DoorControllerScript : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        sc = FindAnyObjectByType<SequenceController>();
     }
 
     private void Update()
@@ -50,9 +53,9 @@ public class DoorControllerScript : MonoBehaviour
     {
         if (doorReadyToOpen)
         {
-            animator.SetTrigger("OpenDoor");
-            SequenceController.IncrementSequence();
-            
+            animator.SetTrigger("DoorOpen");
+            sc.IncrementSequence();
+            Destroy(this);
         }
     }
 

@@ -11,6 +11,7 @@ public class WaveController : MonoBehaviour
     [SerializeField] int[] enemiesToSpawn;
 
     GameManager gameManager;
+    SequenceController sc;
 
     int enemiesLeftToSpawn;
     int currentWave = 0;
@@ -20,7 +21,7 @@ public class WaveController : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GetComponent<GameManager>();
+        sc = FindAnyObjectByType<SequenceController>();
 
         enemiesLeftToSpawn = enemiesToSpawn[currentWave];
     }
@@ -32,8 +33,13 @@ public class WaveController : MonoBehaviour
         if (enemiesLeftToSpawn > 0 && spawnIntervalTimer <= 0)
             SpawnEnemy();
 
-        if (enemiesLeftToSpawn <= 0 && gameManager.enemyCount <= 0)
+        if (enemiesLeftToSpawn <= 0 && GameManager.enemyCount <= 2 && currentWave <= 1)
             NextWave();
+
+        else if (currentWave == 2 && enemiesLeftToSpawn <= 0 && GameManager.enemyCount <= 0)
+        {
+            NextWave();
+        }
     }
 
     public void SpawnEnemy()
@@ -43,7 +49,7 @@ public class WaveController : MonoBehaviour
 
         enemiesLeftToSpawn--;
 
-        gameManager.enemyCount++;
+        GameManager.enemyCount++;
 
         spawnIntervalTimer = spawnInterval;
     }
@@ -52,9 +58,13 @@ public class WaveController : MonoBehaviour
     {
         currentWave++;
 
+        if (currentWave == 2 && GameManager.enemyCount <= 5)
+            sc.IncrementSequence();
+
         if (currentWave >= 3)
         {
-            print("End Game");
+            sc.IncrementSequence();
+            Destroy(this);
         }
 
         enemiesLeftToSpawn = enemiesToSpawn[currentWave];

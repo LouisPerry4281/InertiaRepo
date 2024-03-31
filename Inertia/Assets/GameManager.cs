@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
 {
     GameObject player;
 
-    public int enemyCount;
+    public static int enemyCount;
 
-    public bool hasStartedCombat = false;
+    public static bool hasStartedCombat = false;
 
     private void Start()
     {

@@ -8,7 +8,7 @@ public class CombatStartTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
-            FindAnyObjectByType<GameManager>().hasStartedCombat = true;
+            GameManager.hasStartedCombat = true;
         }
     }
 }
