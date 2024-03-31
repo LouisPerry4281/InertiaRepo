@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Hazard
-    second: {fileID: 2100000, guid: dcbc728d71d35f743907ccb97ad9d1b8, type: 2}
+      name: Border
+    second: {fileID: 2100000, guid: 494689c44cee3154e9be070bdbf4e41b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert7
-    second: {fileID: 2100000, guid: 4967de33ab00fa742ae56653e2010bc0, type: 2}
+      name: Hazard
+    second: {fileID: 2100000, guid: dcbc728d71d35f743907ccb97ad9d1b8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -56,7 +56,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
