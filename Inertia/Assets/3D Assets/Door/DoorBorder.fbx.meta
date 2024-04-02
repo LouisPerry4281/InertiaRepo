@@ -3,7 +3,17 @@ guid: c5bb2d64b019d7e45be678b2119c31f7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hazard
+    second: {fileID: 2100000, guid: cfcfcf3f9fa001641b1b03aff807ea3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stripe
+    second: {fileID: 2100000, guid: dcbc728d71d35f743907ccb97ad9d1b8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
