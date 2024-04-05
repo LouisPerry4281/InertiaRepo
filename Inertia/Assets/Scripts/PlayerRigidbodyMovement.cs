@@ -31,6 +31,8 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [Header("Visual Effects")]
     [SerializeField] GameObject dashEffectUp;
     [SerializeField] GameObject dashEffectDown;
+    VisualEffect actionLines;
+    [SerializeField] float actionLineMaxSpawnRate;
 
     [Header("Juice")]
     public float currentJuice;
@@ -55,6 +57,8 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
         dashEffectUp.GetComponentInChildren<VisualEffect>().Stop();
         dashEffectDown.GetComponentInChildren<VisualEffect>().Stop();
+
+        actionLines = GameObject.Find("ActionLines").GetComponent<VisualEffect>();
     }
 
     private void OnMove(InputValue value)
@@ -70,6 +74,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     private void Update()
     {
         HandleAnimation();
+        HandleActionLines();
 
         if (dashInput && !isDashing && canDash)
         {
@@ -210,5 +215,18 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         }
 
         anim.SetFloat("Locomotion", rb.velocity.magnitude);
+    }
+
+    private void HandleActionLines()
+    {
+        //Take the current speed and normalise it to a 0-1 scale
+        float currentSpeed = rb.velocity.magnitude;
+        float normalisedSpeed = currentSpeed / 12; //12 being the max speed the player can reach rounded up
+
+        //Only applies action lines when player is 70% or more of their max speed
+        if (normalisedSpeed > 0.7f)
+            actionLines.SetFloat("Spawn", normalisedSpeed * actionLineMaxSpawnRate);
+        else
+            actionLines.SetFloat("Spawn", 0);
     }
 }
