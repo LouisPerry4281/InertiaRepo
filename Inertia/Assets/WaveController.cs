@@ -33,10 +33,10 @@ public class WaveController : MonoBehaviour
         if (enemiesLeftToSpawn > 0 && spawnIntervalTimer <= 0)
             SpawnEnemy();
 
-        if (enemiesLeftToSpawn <= 0 && GameManager.enemyCount <= 2 && currentWave <= 1)
+        if (enemiesLeftToSpawn <= 0 && GameManager.enemyCount <= 2 && currentWave <= 1 && GameManager.hasStartedCombat)
             NextWave();
 
-        else if (currentWave == 2 && enemiesLeftToSpawn <= 0 && GameManager.enemyCount <= 0)
+        else if (currentWave == 2 && enemiesLeftToSpawn <= 0 && GameManager.enemyCount <= 0 && GameManager.hasStartedCombat)
         {
             NextWave();
         }

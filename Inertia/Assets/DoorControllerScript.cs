@@ -14,7 +14,7 @@ public class DoorControllerScript : MonoBehaviour
     // 2 - Exit Door
     [SerializeField] int doorType;
 
-    bool doorReadyToOpen = false;
+    public bool doorReadyToOpen = false;
     bool doorReadyToClose = false;
 
     private void Start()
@@ -41,7 +41,10 @@ public class DoorControllerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        doorReadyToOpen = true;
+        if (other.gameObject.layer == 7)
+        {
+            doorReadyToOpen = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
