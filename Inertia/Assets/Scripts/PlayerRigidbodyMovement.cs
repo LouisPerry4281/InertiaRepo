@@ -27,6 +27,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [SerializeField] float dashCooldown;
     [SerializeField] LayerMask dashCollisionLayers;
     [SerializeField] GameObject dashTarget;
+    [SerializeField] float wallDashBuffer;
 
     [Header("Visual Effects")]
     [SerializeField] GameObject dashEffectUp;
@@ -149,6 +150,8 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         //Stops current velocity
         rb.velocity = Vector3.zero;
 
+        yield return new WaitForFixedUpdate();
+
         //Fires raycast in dash direction
         RaycastHit hit;
         bool dashRayBlocked = false;
@@ -157,7 +160,9 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         //If dash hits an obstacle, place the dash target in front of the obstacle
         if (dashRayBlocked)
         {
-            dashTarget.transform.position = hit.point;
+            Vector3 dashTargetPosition = ((hit.point - transform.position) / wallDashBuffer) + transform.position;
+
+            dashTarget.transform.position = dashTargetPosition;
         }
 
         //If dash is unobstructed, place the dash target at the end of the ray
