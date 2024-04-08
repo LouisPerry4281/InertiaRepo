@@ -33,7 +33,7 @@ public class SequenceController : MonoBehaviour
             endTrigger.SetActive(true);
         }
 
-        Invoke(nameof(StartCombat), 1.0f);
+        Invoke(nameof(StartCombat), 2f);
     }
 
     void StartCombat()
