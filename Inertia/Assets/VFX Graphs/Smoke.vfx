@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 241
     y: -190
     width: 1124
-    height: 1596
+    height: 1560
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2211,7 +2211,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":0.9339622855186462,"g":0.9339622855186462,"b":0.9339622855186462,"a":1.0},"time":0.46764323115348818},{"color":{"r":0.28301888704299929,"g":0.28301888704299929,"b":0.28301888704299929,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":0.9339622855186462,"g":0.9339622855186462,"b":0.9339622855186462,"a":1.0},"time":0.46764323115348818},{"color":{"r":0.28301888704299929,"g":0.28301888704299929,"b":0.28301888704299929,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.729411780834198,"time":0.0},{"alpha":0.3803921639919281,"time":1.0}],"gradientMode":0}'
     m_Space: -1
   m_Property:
     name: gradient
