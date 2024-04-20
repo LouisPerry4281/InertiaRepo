@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public void KillEnemy(GameObject enemyToKill)
     {
         enemyToKill.GetComponent<BoxCollider>().enabled = false;
-        enemyToKill.GetComponent<BobAI>().enabled = false;
+        //enemyToKill.GetComponent<BobAI>().enabled = false;
         enemyToKill.GetComponent<EnemyHealth>().enabled = false;
         enemyToKill.GetComponent<NavMeshAgent>().enabled = false;
 

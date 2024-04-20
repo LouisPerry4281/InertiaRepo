@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 655220421389832541}
   - component: {fileID: 3426440643511425432}
   - component: {fileID: 5704146310957501784}
-  - component: {fileID: 2401005739224190503}
   - component: {fileID: 6784471790577528355}
   - component: {fileID: 7998694736320182388}
   m_Layer: 6
@@ -109,25 +108,6 @@ MonoBehaviour:
     type: 3}
   baseMat: {fileID: 5561349426305759274, guid: f6722f11d58a33e4c9d97768895812d7, type: 3}
   flashMat: {fileID: 2100000, guid: 03b350163a0750145aece6e3d69f1d19, type: 2}
---- !u!114 &2401005739224190503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041337856614909461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d14a102f961dcd2438140ce02483956f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exclamationMotif: {fileID: 2248555946228095417, guid: 1a229f83115f79d4b8ec3de44137455b,
-    type: 3}
-  attackDistance: 10
-  maxAttackDistance: 12
-  meleeRange: 2.5
-  chanceToAttack: 5
-  currentStance: 0
 --- !u!195 &6784471790577528355
 NavMeshAgent:
   m_ObjectHideFlags: 0
