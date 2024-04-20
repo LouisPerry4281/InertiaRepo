@@ -3,44 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BOBAI : MonoBehaviour
+public class StateController : MonoBehaviour
 {
-    enum States
-    {
-        Idle,
-        Wander,
-        Attack,
-        Retreat
-    }
+    IState currentState;
 
-    States currentState;
+    public IdleState idleState = new IdleState();
+    public WanderState wanderState = new WanderState();
+    public AttackState attackState = new AttackState();
+    public RetreatState retreatState = new RetreatState();
+    public HurtState hurtState = new HurtState();
 
     private void Start()
     {
-        currentState = States.Idle;
+        ChangeState(idleState);
     }
 
-    private void Update()
+    void Update()
     {
-        StateSwapper();
-    }
-
-    private void StateSwapper()
-    {
-        switch (currentState)
+        if (currentState != null)
         {
-            case States.Idle:
-                currentState = States.Idle;
-                break;
-            case States.Wander:
-                currentState = States.Wander;
-                break;
-            case States.Attack:
-                currentState = States.Attack;
-                break;
-            case States.Retreat:
-                currentState = States.Retreat;
-                break;
+            currentState.UpdateState(this);
         }
     }
+
+    public void ChangeState(IState newState)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExit(this);
+        }
+        currentState = newState;
+        currentState.OnEnter(this);
+    }
+}
+
+public interface IState
+{
+    public void OnEnter(StateController controller);
+
+    public void UpdateState(StateController controller);
+
+    public void OnHurt(StateController controller);
+
+    public void OnExit(StateController controller);
 }
