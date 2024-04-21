@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WanderState : IState
 {
+    //Obsolete for now, will implement later.
     public void OnEnter(StateController controller)
     {
 

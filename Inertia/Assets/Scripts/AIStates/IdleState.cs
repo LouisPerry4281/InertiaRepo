@@ -11,7 +11,7 @@ public class IdleState : IState
 
     public void UpdateState(StateController controller)
     {
-
+        //When player is in LOS, switch to attack state
     }
 
     public void OnHurt(StateController controller)
