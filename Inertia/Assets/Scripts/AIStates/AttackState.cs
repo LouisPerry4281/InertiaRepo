@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AttackState : IState
 {
+    bool isAttacking = false;
+
     public void OnEnter(StateController controller)
     {
         
@@ -13,14 +15,13 @@ public class AttackState : IState
     {
         //Encircle the player
 
-        //Grab the amount of enemies currently attacking the player
-        //If amount of enemies attacking is lower than the lower limit, start attack sequence
+        //If too many enemies are attacking the player, cancel the attack;
+        if (BobController.enemiesAttacking > BobController.enemyAttackingLimit || isAttacking)
+            return;
 
-        //AttackSequence
-        //Number of enemies attacking++
-        //Approach player
-        //When within range, attack
-        //Switch to retreat state
+        controller.StartCoroutine("AttackSequence");
+        isAttacking = true;
+        BobController.enemiesAttacking++;
     }
 
     public void OnHurt(StateController controller)
