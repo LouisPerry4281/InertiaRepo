@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3426440643511425432}
   - component: {fileID: 5704146310957501784}
   - component: {fileID: 6784471790577528355}
+  - component: {fileID: 2186515847092691268}
   - component: {fileID: 7998694736320182388}
   m_Layer: 6
   m_Name: B.O.B
@@ -130,6 +131,27 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2186515847092691268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041337856614909461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14a102f961dcd2438140ce02483956f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exclamationMotif: {fileID: 2248555946228095417, guid: 1a229f83115f79d4b8ec3de44137455b,
+    type: 3}
+  attackDistance: 10
+  maxAttackDistance: 12
+  meleeRange: 2.5
+  chanceToAttack: 5
+  retreatDistance: 7
+  retreatTimer: 5
+  currentStance: 0
 --- !u!95 &7998694736320182388
 Animator:
   serializedVersion: 7
@@ -203,7 +225,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3823844747163346825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -657,8 +679,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1209706, y: 0.36444306, z: 0.1953253}
-  m_Center: {x: -0.49440104, y: 0.10669455, z: -0.03964798}
+  m_Size: {x: 1.2575301, y: 0.36444306, z: 0.81506556}
+  m_Center: {x: -0.56268084, y: 0.10669455, z: -0.0829075}
 --- !u!114 &5567377032476390316
 MonoBehaviour:
   m_ObjectHideFlags: 0
