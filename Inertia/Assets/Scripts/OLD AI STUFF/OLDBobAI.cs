@@ -13,17 +13,27 @@ public class OLDBobAI : MonoBehaviour
 
     [SerializeField] GameObject exclamationMotif;
 
+    [Header("Attack Stance")]
     [SerializeField] float attackDistance;
     [SerializeField] float maxAttackDistance;
     [SerializeField] float meleeRange;
+
+    float yet;
+    const float interval = 1.0f;
+    [SerializeField] int chanceToAttack;
 
     bool readyToAttack;
     bool isAttacking;
     bool isSwapping;
 
-    float yet;
-    const float interval = 1.0f;
-    [SerializeField] int chanceToAttack;
+    [Header("Retreat Stance")]
+    [SerializeField] float retreatDistance;
+    [SerializeField] float retreatTimer;
+    float retreatTimerMax;
+
+
+
+
 
 
     private void Start()
@@ -32,13 +42,17 @@ public class OLDBobAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         gm = FindAnyObjectByType<GameManager>();
+
+        retreatTimerMax = retreatTimer;
     }
 
     public enum StanceSelector
     {
         Idle,
         Pursuit,
-        Attack
+        Attack,
+        Retreat,
+        Hurt
     }
 
     public StanceSelector currentStance;
@@ -55,6 +69,12 @@ public class OLDBobAI : MonoBehaviour
                 break;
             case StanceSelector.Attack:
                 AttackStance();
+                break;
+            case StanceSelector.Retreat:
+                RetreatStance();
+                break;
+            case StanceSelector.Hurt:
+                HurtStance();
                 break;
         }
     }
@@ -106,6 +126,29 @@ public class OLDBobAI : MonoBehaviour
         }
     }
 
+    void RetreatStance()
+    {
+        if (Vector3.Distance(player.transform.position, transform.position) < retreatDistance)
+        {
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            agent.SetDestination(transform.position + direction * -5);
+        }
+
+        retreatTimer -= Time.deltaTime;
+
+        if (retreatTimer <= 0)
+        {
+            retreatTimer = retreatTimerMax;
+
+            currentStance = StanceSelector.Pursuit;
+        }
+    }
+
+    void HurtStance()
+    {
+
+    }
+
     private void IntervalTimer()
     {
         yet += Time.deltaTime;
@@ -140,16 +183,9 @@ public class OLDBobAI : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         agent.isStopped = false;
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        agent.SetDestination(transform.position + direction * -10);
 
-        yield return new WaitForSeconds(3);
-
-        currentStance = StanceSelector.Pursuit;
-
-        agent.isStopped = false;
         isAttacking = false;
-        
+        currentStance = StanceSelector.Retreat;
     }
 
     IEnumerator CombatStart()

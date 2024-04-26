@@ -17,7 +17,7 @@ public class StateController : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(idleState);
+        ChangeState(attackState);
     }
 
     void Update()
@@ -36,20 +36,6 @@ public class StateController : MonoBehaviour
         }
         currentState = newState;
         currentState.OnEnter(this); //Run start code for the state being transitioned to
-    }
-
-    IEnumerator AttackSequence()
-    {
-        print("attack");
-
-        yield return new WaitForSeconds(3);
-
-        print("attack over");
-
-        //Approach player
-        //When within range, attack
-        
-        ChangeState(retreatState);
     }
 }
 

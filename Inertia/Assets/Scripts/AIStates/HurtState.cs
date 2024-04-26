@@ -18,7 +18,7 @@ public class HurtState : IState
 
     public void UpdateState(StateController controller)
     {
-        iFrameTimer -= Time.deltaTime; //May be betetr to use a coroutine and return WaitForSeconds later but for now this is fine
+        iFrameTimer -= Time.deltaTime; //May be better to use a coroutine and return WaitForSeconds later but for now this is fine
 
         if (iFrameTimer <= 0)
         {
