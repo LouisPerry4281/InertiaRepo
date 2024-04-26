@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     GameObject player;
     [SerializeField] GameObject endUI;
+
+    [SerializeField] float restartTimer;
 
     public static int enemyCount;
 
@@ -42,6 +45,22 @@ public class GameManager : MonoBehaviour
 
     public void KillPlayer()
     {
-        print("ded");
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().isKinematic = true;
+
+        player.GetComponent<PlayerRigidbodyMovement>().enabled = false;
+        player.GetComponent<PlayerRigidbodyHealth>().enabled = false;
+        player.GetComponent<PlayerRigidbodyCombat>().enabled = false;
+
+        //Turn on ui stuff or whatever
+
+        //DEATH ANIMATION HERE//
+
+        Invoke(nameof(RestartLevel), restartTimer);
+    }
+
+    void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
