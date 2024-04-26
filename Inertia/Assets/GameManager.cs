@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     GameObject player;
     [SerializeField] GameObject endUI;
+    [SerializeField] GameObject deathUI;
+    [SerializeField] GameObject juiceUI;
 
     [SerializeField] float restartTimer;
 
@@ -52,7 +54,8 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerRigidbodyHealth>().enabled = false;
         player.GetComponent<PlayerRigidbodyCombat>().enabled = false;
 
-        //Turn on ui stuff or whatever
+        juiceUI.SetActive(false);
+        deathUI.SetActive(true);
 
         //DEATH ANIMATION HERE//
 

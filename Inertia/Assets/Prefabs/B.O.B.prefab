@@ -147,7 +147,7 @@ MonoBehaviour:
     type: 3}
   attackDistance: 10
   maxAttackDistance: 12
-  meleeRange: 2.5
+  meleeRange: 2
   chanceToAttack: 5
   retreatDistance: 7
   retreatTimer: 5
