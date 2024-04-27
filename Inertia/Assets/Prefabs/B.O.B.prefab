@@ -145,7 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exclamationMotif: {fileID: 2248555946228095417, guid: 1a229f83115f79d4b8ec3de44137455b,
     type: 3}
-  attackDistance: 10
+  maxPursuitDistance: 7
+  minPursuitDistance: 5
   maxAttackDistance: 12
   meleeRange: 2
   chanceToAttack: 5

@@ -13,8 +13,11 @@ public class OLDBobAI : MonoBehaviour
 
     [SerializeField] GameObject exclamationMotif;
 
+    [Header("Pursue Stance")]
+    [SerializeField] float maxPursuitDistance;
+    [SerializeField] float minPursuitDistance;
+
     [Header("Attack Stance")]
-    [SerializeField] float attackDistance;
     [SerializeField] float maxAttackDistance;
     [SerializeField] float meleeRange;
 
@@ -90,20 +93,33 @@ public class OLDBobAI : MonoBehaviour
 
     void PursueStance()
     {
-        agent.SetDestination(player.position);
-
         IntervalTimer();
 
-        if (Vector3.Distance(player.position, transform.position) <= attackDistance)
+        float distanceFromPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceFromPlayer >= maxPursuitDistance) //Too far from player
         {
-            readyToAttack = true;
-            agent.isStopped = true;
+            agent.isStopped = false;
+            readyToAttack = false;
+
+            agent.SetDestination(player.position);
+        }
+
+        else if (distanceFromPlayer <= minPursuitDistance) //Too close to player
+        {
+            agent.isStopped = false;
+            readyToAttack = false;
+
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            agent.SetDestination(transform.position + direction * -5);
         }
 
         else
         {
-            readyToAttack= false;
-            agent.isStopped = false;
+            agent.isStopped = true;
+            readyToAttack = true;
+
+            agent.ResetPath();
         }
     }
 
@@ -199,11 +215,5 @@ public class OLDBobAI : MonoBehaviour
         isSwapping = false;
 
         currentStance = StanceSelector.Pursuit;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 }
