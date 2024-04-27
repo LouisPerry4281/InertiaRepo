@@ -86,7 +86,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
             dashInput = false;
     }
 
-    public void JuiceChange(float juiceAmount)
+    public void JuiceChange(float juiceAmount) //Method to update juice levels, within the min and max bounds
     {
         currentJuice += juiceAmount;
         currentJuice = Mathf.Clamp(currentJuice, 0, maxJuice);

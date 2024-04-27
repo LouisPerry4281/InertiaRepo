@@ -13,6 +13,8 @@ public class PlayerRigidbodyHealth : MonoBehaviour
     [SerializeField] float invulnFrames;
     bool isVulnerable = true;
 
+    [SerializeField] float juiceLossOnHit = 0.2f;
+
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -23,7 +25,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 
     public void InitializeDamage(float damageToTake)
     {
-        if (!isVulnerable)
+        if (!isVulnerable) //If the player has iFrames, cancel damage
         {
             return;
         }
@@ -35,7 +37,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
             gameManager.KillPlayer();
         }
 
-        playerMovement.JuiceChange(-0.2f);
+        playerMovement.JuiceChange(-juiceLossOnHit); //When hit, reduce the player's juice
 
         isVulnerable = false;
         Invoke("ReVulnerable", invulnFrames);

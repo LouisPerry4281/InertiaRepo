@@ -13,7 +13,7 @@ public class RBHitboxManager : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == 6) //Collides with enemy layer
         {
             other.gameObject.GetComponent<EnemyHealth>().InitialiseDamage(playerCombat.damage, playerCombat.attackTimer);
         }

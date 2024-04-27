@@ -28,11 +28,11 @@ public class PlayerRigidbodyCombat : MonoBehaviour
 
     private void Update()
     {
-        damage = (baseDamage * movement.currentJuice) + 30;
+        damage = (baseDamage * movement.currentJuice) + 30; //Calculate damage based on juice (with a linear baseline)
 
         if (attackInput)
         {
-            if (CanAttack() && !isAttacking)
+            if (CanAttack() && !isAttacking) //When the player clicks, check if they can attack, and are not already attacking
             {
                 StartCoroutine(Attack());
             }
@@ -56,6 +56,7 @@ public class PlayerRigidbodyCombat : MonoBehaviour
 
         yield return new WaitForSeconds(attackTimer);
 
+        //Re-enable player and enemy collisions
         Physics.IgnoreLayerCollision(6, 7, false);
 
         hitBox.enabled = false;

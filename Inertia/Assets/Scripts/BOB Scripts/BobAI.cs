@@ -4,7 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class OLDBobAI : MonoBehaviour
+public class BobAI : MonoBehaviour
 {
     Transform player;
     NavMeshAgent agent;
@@ -49,7 +49,7 @@ public class OLDBobAI : MonoBehaviour
         retreatTimerMax = retreatTimer;
     }
 
-    public enum StanceSelector
+    public enum StanceSelector //Contains enumerated variables for more readable code
     {
         Idle,
         Pursuit,
@@ -62,7 +62,7 @@ public class OLDBobAI : MonoBehaviour
 
     private void Update()
     {
-        switch (currentStance)
+        switch (currentStance) //Switches which "Stance" is used depending on what the pointer has selected
         {
             case StanceSelector.Idle:
                 IdleStance();
@@ -83,7 +83,7 @@ public class OLDBobAI : MonoBehaviour
     }
 
 
-    void IdleStance()
+    void IdleStance() //Waits for player to enter room/start combat
     {
         if (!isSwapping && GameManager.hasStartedCombat)
         {
@@ -91,7 +91,7 @@ public class OLDBobAI : MonoBehaviour
         }
     }
 
-    void PursueStance()
+    void PursueStance() //Maintains perfect distance from player whilst checking regularly if it should attack
     {
         IntervalTimer();
 
@@ -114,7 +114,7 @@ public class OLDBobAI : MonoBehaviour
             agent.SetDestination(transform.position + direction * -5);
         }
 
-        else
+        else //Goldilocks
         {
             agent.isStopped = true;
             readyToAttack = true;
@@ -125,18 +125,18 @@ public class OLDBobAI : MonoBehaviour
 
     void AttackStance()
     {
-        if (!isAttacking)
+        if (!isAttacking) //If not already attacking, approach player
         {
             agent.SetDestination(player.position);
             agent.isStopped = false;
         }
 
-        if (Vector3.Distance(player.position, transform.position) < meleeRange && !isAttacking)
+        if (Vector3.Distance(player.position, transform.position) < meleeRange && !isAttacking) //When in melee range, attack player
         {
             StartCoroutine(Attack());
         }
 
-        else if (Vector3.Distance(player.position, transform.position) > maxAttackDistance)
+        else if (Vector3.Distance(player.position, transform.position) > maxAttackDistance) //If player is too far away, go back to neutral
         {
             currentStance = StanceSelector.Pursuit;
         }
@@ -144,7 +144,7 @@ public class OLDBobAI : MonoBehaviour
 
     void RetreatStance()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) < retreatDistance)
+        if (Vector3.Distance(player.transform.position, transform.position) < retreatDistance) //When the player is too close, run away
         {
             Vector3 direction = (player.transform.position - transform.position).normalized;
             agent.SetDestination(transform.position + direction * -5);
@@ -152,7 +152,7 @@ public class OLDBobAI : MonoBehaviour
 
         retreatTimer -= Time.deltaTime;
 
-        if (retreatTimer <= 0)
+        if (retreatTimer <= 0) //When the timer is over, switch back to neutral
         {
             retreatTimer = retreatTimerMax;
 
@@ -162,7 +162,7 @@ public class OLDBobAI : MonoBehaviour
 
     void HurtStance()
     {
-
+        //Currently empty, acts as a null state so the enemy is not fighting with it's damage sequence
     }
 
     private void IntervalTimer()
@@ -177,7 +177,7 @@ public class OLDBobAI : MonoBehaviour
         }
     }
 
-    void AttackCheck()
+    void AttackCheck() //Rolls a chance for the enemy to attack at set intervals if they are currently ready
     {
         int roll = Random.Range(0, chanceToAttack);
 
@@ -196,7 +196,9 @@ public class OLDBobAI : MonoBehaviour
 
         anim.Play("Attack");
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("New State")); //Waits until attack anim is over
+
+        print("AnimOver");
 
         agent.isStopped = false;
 
@@ -210,7 +212,7 @@ public class OLDBobAI : MonoBehaviour
 
         Instantiate(exclamationMotif, new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z), Quaternion.identity);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1); //Magic number to keep inspector cleaner :)
 
         isSwapping = false;
 

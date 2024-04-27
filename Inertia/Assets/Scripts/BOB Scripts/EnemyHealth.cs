@@ -8,6 +8,8 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] float health;
     [SerializeField] float knockbackForce;
+    [SerializeField] float hitstopTime;
+    [SerializeField] float stunTimer;
     bool isVulnerable = true;
 
     [SerializeField] GameObject hitEffect;
@@ -22,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
     Animator playerAnimator;
     NavMeshAgent agent;
     MeshRenderer meshRenderer;
-    OLDBobAI aiScript;
+    BobAI aiScript;
 
     private void Start()
     {
@@ -31,10 +33,10 @@ public class EnemyHealth : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        aiScript = GetComponent<OLDBobAI>();
+        aiScript = GetComponent<BobAI>();
     }
 
-    public void InitialiseDamage(float damageToTake, float damageTimer)
+    public void InitialiseDamage(float damageToTake, float damageTimer) //The public interface for starting the damage sequence
     {
         if (isVulnerable)
             StartCoroutine(TakeDamage(damageToTake, damageTimer));
@@ -42,44 +44,49 @@ public class EnemyHealth : MonoBehaviour
 
     IEnumerator TakeDamage(float damageToTake, float damageTimer)
     {
-        isVulnerable = false;
+        isVulnerable = false; 
 
-        aiScript.currentStance = OLDBobAI.StanceSelector.Hurt;
+        aiScript.currentStance = BobAI.StanceSelector.Hurt; //Places the ai in a "stasis" like stance
 
-        //Hitstop Stuff
+        //Hitstop stops the player's attack animation for a small time
         playerAnimator.speed = 0;
         playerAnimator.GetComponentInParent<Rigidbody>().velocity = Vector3.zero;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(hitstopTime);
         playerAnimator.speed = 1;
 
-        CinemachineShake.Instance.ShakeCamera(2, .1f);
+        CinemachineShake.Instance.ShakeCamera(2, .1f); //Camera Shake
 
+        //Creates the particle effects and vfx
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
         Instantiate(hitParticles, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.Euler(-90, 0, 0));
         Instantiate(sparkVFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
 
+        //Stops the navmesh agent controlling the enemy, and resets it's current movement and path
         agent.updatePosition = false;
         agent.velocity = Vector3.zero;
         agent.ResetPath();
 
+        //Allows the rigidbody to take over, disabling the navmesh agent as they don't work well together
         rb.isKinematic = false;
         agent.enabled = false;
 
-        Knockback();
+        Knockback(); //Knocks the enemy away from the player using rigidbody
 
+        //Calculates damage and checks if player is dead
         health -= damageToTake;
         if (HealthCheck())
             yield return null;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(stunTimer);
 
+        //Re-enables the navmesh agent and disables rigidbody functionality
         rb.isKinematic = true;
         agent.enabled = true;
         agent.updatePosition = true;
 
         yield return new WaitForSeconds(damageTimer);
 
-        aiScript.currentStance = OLDBobAI.StanceSelector.Retreat;
+        aiScript.currentStance = BobAI.StanceSelector.Retreat; //Starts to retreat
 
         isVulnerable = true;
     }
@@ -97,7 +104,6 @@ public class EnemyHealth : MonoBehaviour
 
     private void Knockback()
     {
-        print("YEET");  
         Vector3 direction = (playerAnimator.transform.position - transform.position).normalized;
         direction = new Vector3(direction.x, 0, direction.z);
         rb.AddForce(-direction * knockbackForce, ForceMode.Impulse);

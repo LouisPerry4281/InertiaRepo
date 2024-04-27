@@ -19,7 +19,8 @@ public class CinemachineShake : MonoBehaviour
 
     private void Update()
     {
-        if (shakeTimer > 0)
+        //Controls the timer for the camera shake
+        if (shakeTimer > 0) 
         {
             shakeTimer -= Time.deltaTime;
             if (shakeTimer <= 0)
@@ -35,7 +36,7 @@ public class CinemachineShake : MonoBehaviour
         }
     }
 
-    public void ShakeCamera(float intensity, float time)
+    public void ShakeCamera(float intensity, float time) //Grabs all 3 cinemachine rigs, sets the amplitude value to create the shake, and starts the timer
     {
         CinemachineBasicMultiChannelPerlin basicMultiChannelPerlin1 = cinemachine.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         CinemachineBasicMultiChannelPerlin basicMultiChannelPerlin2 = cinemachine.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();

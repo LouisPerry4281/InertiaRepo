@@ -16,6 +16,7 @@ public class EndTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //When player enters end zone, end the game
         if (other.gameObject.layer == 7)
         {
             gm.EndGame();

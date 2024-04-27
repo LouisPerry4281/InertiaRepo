@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        //Singleton!
         if (instance == null)
         {
             instance = this;
@@ -32,6 +33,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
+        //Get the requested sound from the array
         Sound s = Array.Find(musicSounds, x => x.name == name);
 
         if (s == null)
@@ -39,6 +41,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Sound Not Found");
         }
 
+        //Prime the Audiosource with the grabbed clip
         else
         {
             musicSource.clip = s.clip;
@@ -48,6 +51,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string name)
     {
+        //Get the requested sound from the array
         Sound s = Array.Find(sfxSounds, x => x.name == name);
 
         if (s == null)
@@ -55,6 +59,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Sound Not Found");
         }
 
+        //Play the clip grabbed
         else
         {
             sfxSource.PlayOneShot(s.clip);
