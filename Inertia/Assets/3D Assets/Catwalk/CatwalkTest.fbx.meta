@@ -3,7 +3,22 @@ guid: 447b06fd9adc0974e942166ea865c6dd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert10
+    second: {fileID: 2100000, guid: 3bd3dc27779031e4eb95f9c576a70f41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 83c313f0a8fbab240b2e60fd3b316e0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert5
+    second: {fileID: 2100000, guid: 3bd3dc27779031e4eb95f9c576a70f41, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -88,7 +103,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 12.499
+    globalScale: 1249.9
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
