@@ -136,7 +136,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _NoiseColour: {r: 0.13416694, g: 0.13731372, b: 0.14150941, a: 1}
-    - _Offset: {r: 0.39, g: 0.272, b: 0, a: 0}
+    - _Offset: {r: 0.5, g: 0.272, b: 0, a: 0}
     - _ScratchesColour: {r: 0, g: 0, b: 0, a: 0}
     - _ScratchesOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ScratchesTiling: {r: 1, g: 1, b: 0, a: 0}
