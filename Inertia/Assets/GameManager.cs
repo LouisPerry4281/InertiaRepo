@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject endUI;
     [SerializeField] GameObject deathUI;
     [SerializeField] GameObject juiceUI;
+    Animator anim;
 
     [SerializeField] float restartTimer;
 
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
+        anim = player.GetComponentInChildren<Animator>();
     }
 
     public void KillEnemy(GameObject enemyToKill)
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour
         deathUI.SetActive(true);
 
         //DEATH ANIMATION HERE//
+        anim.Play("Death");
 
         Invoke(nameof(RestartLevel), restartTimer);
     }
