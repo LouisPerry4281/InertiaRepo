@@ -36,6 +36,15 @@ public class SequenceManager : MonoBehaviour
 
     public List<BobAI> enemies = new List<BobAI>();
 
+    [SerializeField] int enemiesLeftForEnd;
+
+    WaveManager waveManager;
+
+    private void Awake()
+    {
+        waveManager = GetComponent<WaveManager>();
+    }
+
     private void Start()
     {
         currentState = SequenceState.Intro;
@@ -48,7 +57,10 @@ public class SequenceManager : MonoBehaviour
 
     void CombatState()
     {
-
+        if (waveManager.isFinalWave && waveManager.enemiesAlive <= enemiesLeftForEnd)
+        {
+            currentState = SequenceState.EndOpen;
+        }
     }
 
     void EndOpenState()
@@ -77,7 +89,7 @@ public class SequenceManager : MonoBehaviour
             enemy.currentStance = BobAI.StanceSelector.Pursuit;
         }
 
-        GetComponent<WaveManager>().enabled = true;
+        waveManager.enabled = true;
 
         currentState = SequenceState.Combat;
     }

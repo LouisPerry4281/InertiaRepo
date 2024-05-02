@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
@@ -16,9 +17,9 @@ public class WaveManager : MonoBehaviour
 
     int waveNumber;
     int credits;
-    float enemiesAlive;
+    public int enemiesAlive;
 
-    bool isFinalWave;
+    public bool isFinalWave;
 
     private void Awake()
     {
@@ -30,6 +31,11 @@ public class WaveManager : MonoBehaviour
         credits = waveCredits[waveNumber];
 
         StartCoroutine(SpawnEnemies());
+    }
+
+    private void Update()
+    {
+        enemiesAlive = sequenceManager.enemies.Count;
     }
 
     IEnumerator SpawnEnemies()
