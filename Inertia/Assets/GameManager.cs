@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    SequenceManager sequenceManager;
+
     GameObject player;
     [SerializeField] GameObject endUI;
     [SerializeField] GameObject deathUI;
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
+        sequenceManager = FindAnyObjectByType<SequenceManager>();
         anim = player.GetComponentInChildren<Animator>();
     }
 
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
 
         //Adds 20% juice when an enemy is defeated
         player.GetComponent<PlayerRigidbodyMovement>().JuiceChange(0.4f);
+        sequenceManager.enemies.Remove(enemyToKill.GetComponent<BobAI>());
     }
 
     public void EndGame()

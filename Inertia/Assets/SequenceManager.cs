@@ -41,11 +41,6 @@ public class SequenceManager : MonoBehaviour
         currentState = SequenceState.Intro;
     }
 
-    public void SwitchState(SequenceState state)
-    {
-        currentState = state;
-    }
-
     void IntroState()
     {
 
@@ -81,5 +76,9 @@ public class SequenceManager : MonoBehaviour
         {
             enemy.currentStance = BobAI.StanceSelector.Pursuit;
         }
+
+        GetComponent<WaveManager>().enabled = true;
+
+        currentState = SequenceState.Combat;
     }
 }

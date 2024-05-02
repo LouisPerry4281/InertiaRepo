@@ -8,7 +8,6 @@ public class FrontDoorController : MonoBehaviour
     {
         if (other.gameObject.layer == 7) //Checks for player layer
         {
-            print("semsame seeds");
             GetComponentInChildren<Animator>().Play("DoorOpen");
         }
     }

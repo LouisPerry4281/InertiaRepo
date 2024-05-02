@@ -4,37 +4,69 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] float[] waveCredits;
+    [SerializeField] float enemySpawnInterval;
 
-    float waveNumber;
-    float credits;
+    [SerializeField] int[] waveCredits;
+
+    [SerializeField] GameObject enemyPrefab;
+
+    [SerializeField] Transform spawnPoint; //Change this to an array later
+
+    SequenceManager sequenceManager;
+
+    int waveNumber;
+    int credits;
     float enemiesAlive;
 
     bool isFinalWave;
 
-    private void Start()
+    private void Awake()
     {
-        //Refill credits from array
-
-        //Start interval spawning (maybe invoke repeating or something?)
+        sequenceManager = GetComponent<SequenceManager>();
     }
 
-    void SpawnEnemy(GameObject enemyToSpawn)
+    private void Start()
     {
-        //Choose one of the spawn points and instantiate the chosen enemy there
+        credits = waveCredits[waveNumber];
 
-        //Set enemy's stance to pursuit
+        StartCoroutine(SpawnEnemies());
+    }
 
-        //Add enemy to list of enemies
+    IEnumerator SpawnEnemies()
+    {
+        for(int i = credits; i > 0; i--)
+        {
+            GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+
+            enemyInstance.GetComponent<BobAI>().currentStance = BobAI.StanceSelector.Pursuit;
+
+            sequenceManager.enemies.Add(enemyInstance.GetComponent<BobAI>());
+
+            yield return new WaitForSeconds(enemySpawnInterval);
+        }
+
+        yield return null;
     }
 
     void NextWave()
     {
-        //Increase Wave No.
-        //Refill credits from array
+        if (isFinalWave)
+        {
+            //If it was already the final wave, open the end game instead
+            //Maybe bring this to the sequence manager and have it detect enemies remaining instead later
+            sequenceManager.currentState = SequenceManager.SequenceState.EndOpen;
+            return;
+        }
 
-        //If length of credit array matches current wave, isFinalWave
+        waveNumber++;
+        credits = waveCredits[waveNumber];
 
-        //Start interval spawning (maybe invoke repeating or something?)
+        //If length of credit array matches current wave, it's the final wave
+        if (waveCredits.Length == waveNumber)
+        {
+            isFinalWave = true;
+        }
+
+        StartCoroutine(SpawnEnemies());
     }
 }
