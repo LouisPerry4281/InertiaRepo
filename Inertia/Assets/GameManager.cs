@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
         enemyToKill.GetComponent<EnemyHealth>().enabled = false;
         enemyToKill.GetComponent<NavMeshAgent>().enabled = false;
 
+        CinemachineShake.Instance.ShakeCamera(6, .2f);
+
         Destroy(enemyToKill);
 
         enemyCount--;

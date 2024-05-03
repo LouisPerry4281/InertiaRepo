@@ -16,14 +16,14 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] GameObject hitParticles;
     [SerializeField] GameObject sparkVFX;
 
-    [SerializeField] Material baseMat;
+    List<Material> baseMaterials = new List<Material>();
+    MeshRenderer[] meshRenderers;
     [SerializeField] Material flashMat;
 
     Rigidbody rb;
     GameManager gameManager;
     Animator playerAnimator;
     NavMeshAgent agent;
-    MeshRenderer meshRenderer;
     BobAI aiScript;
 
     private void Start()
@@ -32,8 +32,13 @@ public class EnemyHealth : MonoBehaviour
         playerAnimator = GameObject.Find("Neutral Idle").GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
         aiScript = GetComponent<BobAI>();
+
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        foreach(MeshRenderer mr in meshRenderers)
+        {
+            baseMaterials.Add(mr.material);
+        }
     }
 
     public void InitialiseDamage(float damageToTake, float damageTimer) //The public interface for starting the damage sequence
@@ -48,13 +53,23 @@ public class EnemyHealth : MonoBehaviour
 
         aiScript.currentStance = BobAI.StanceSelector.Hurt; //Places the ai in a "stasis" like stance
 
+        foreach(MeshRenderer mr in meshRenderers)
+        {
+            mr.material = flashMat;
+        }
+
         //Hitstop stops the player's attack animation for a small time
         playerAnimator.speed = 0;
         playerAnimator.GetComponentInParent<Rigidbody>().velocity = Vector3.zero;
         yield return new WaitForSeconds(hitstopTime);
         playerAnimator.speed = 1;
 
-        CinemachineShake.Instance.ShakeCamera(2, .1f); //Camera Shake
+        for(int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material = baseMaterials[i];
+        }
+
+        CinemachineShake.Instance.ShakeCamera(3, .2f); //Camera Shake
 
         //Creates the particle effects and vfx
         Instantiate(hitEffect, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
