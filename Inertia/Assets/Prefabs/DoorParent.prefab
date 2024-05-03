@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3797935233687794691}
-  - component: {fileID: 4796437156030739617}
   - component: {fileID: 7879513885286742881}
   m_Layer: 0
   m_Name: DoorParent
@@ -34,19 +33,6 @@ Transform:
   - {fileID: 2771161218358189035}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4796437156030739617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8723742258912103702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7fb52a1b8a8a46609cb3770b1aa31ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorType: 0
 --- !u!65 &7879513885286742881
 BoxCollider:
   m_ObjectHideFlags: 0

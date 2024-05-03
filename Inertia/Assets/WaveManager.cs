@@ -6,6 +6,7 @@ using System.Linq;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] float enemySpawnInterval;
+    [SerializeField] float enemiesLeftForNextWave;
 
     [SerializeField] int[] waveCredits;
 
@@ -36,6 +37,11 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         enemiesAlive = sequenceManager.enemies.Count;
+
+        if (enemiesAlive <= enemiesLeftForNextWave)
+        {
+            NextWave();
+        }
     }
 
     IEnumerator SpawnEnemies()
@@ -56,22 +62,18 @@ public class WaveManager : MonoBehaviour
 
     void NextWave()
     {
-        if (isFinalWave)
-        {
-            //If it was already the final wave, open the end game instead
-            //Maybe bring this to the sequence manager and have it detect enemies remaining instead later
-            sequenceManager.currentState = SequenceManager.SequenceState.EndOpen;
-            return;
-        }
-
         waveNumber++;
-        credits = waveCredits[waveNumber];
+
+        print(waveNumber);
+        print(waveCredits.Length);
 
         //If length of credit array matches current wave, it's the final wave
-        if (waveCredits.Length == waveNumber)
+        if (waveCredits.Length == waveNumber + 1)
         {
             isFinalWave = true;
         }
+
+        credits = waveCredits[waveNumber];
 
         StartCoroutine(SpawnEnemies());
     }

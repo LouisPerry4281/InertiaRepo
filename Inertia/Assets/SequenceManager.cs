@@ -34,7 +34,7 @@ public class SequenceManager : MonoBehaviour
         }
     }
 
-    public List<BobAI> enemies = new List<BobAI>();
+    public List<BobAI> enemies = new List<BobAI>(); //Stores a list of enemies currently alive
 
     [SerializeField] int enemiesLeftForEnd;
 
@@ -59,6 +59,7 @@ public class SequenceManager : MonoBehaviour
     {
         if (waveManager.isFinalWave && waveManager.enemiesAlive <= enemiesLeftForEnd)
         {
+            EndSequence();
             currentState = SequenceState.EndOpen;
         }
     }
@@ -77,7 +78,7 @@ public class SequenceManager : MonoBehaviour
     {
         //Grabs all enemies that start in the scene, and stores them in an array
         BobAI[] enemyArray = GameObject.FindObjectsByType<BobAI>(FindObjectsSortMode.None);
-
+        
         for(var i = 0; i < enemyArray.Length; i++) //Moves the array entries into a list
         {
             enemies.Add(enemyArray[i]);
@@ -92,5 +93,18 @@ public class SequenceManager : MonoBehaviour
         waveManager.enabled = true;
 
         currentState = SequenceState.Combat;
+    }
+
+    private void EndSequence()
+    {
+        waveManager.enabled = false;
+
+        print("THIS IS THE END, HOLD YOUR BREATH AND COUNT TO 10, FEEL THE EARTH MOVE");
+
+        //Unlock Final Escape
+
+        //UI Stuff (Get out of there Rye!)
+
+        //Turn on/off any visuals
     }
 }
