@@ -20,6 +20,8 @@ public class EnemyHealth : MonoBehaviour
     MeshRenderer[] meshRenderers;
     [SerializeField] Material flashMat;
 
+    
+
     Rigidbody rb;
     GameManager gameManager;
     Animator playerAnimator;
@@ -58,13 +60,17 @@ public class EnemyHealth : MonoBehaviour
             mr.material = flashMat;
         }
 
+        AudioManager.instance.PlaySFX("MetalHit");
+
         //Hitstop stops the player's attack animation for a small time
         playerAnimator.speed = 0;
         playerAnimator.GetComponentInParent<Rigidbody>().velocity = Vector3.zero;
         yield return new WaitForSeconds(hitstopTime);
         playerAnimator.speed = 1;
 
-        for(int i = 0; i < meshRenderers.Length; i++)
+        
+
+        for (int i = 0; i < meshRenderers.Length; i++)
         {
             meshRenderers[i].material = baseMaterials[i];
         }
