@@ -9,6 +9,7 @@ public class PlayerRigidbodyCombat : MonoBehaviour
 {
     PlayerRigidbodyMovement movement;
     Animator anim;
+    ParticleSystem weaponTrail;
 
     [SerializeField] Collider hitBox;
 
@@ -24,6 +25,7 @@ public class PlayerRigidbodyCombat : MonoBehaviour
     {
         movement = GetComponent<PlayerRigidbodyMovement>();
         anim = GetComponentInChildren<Animator>();
+        weaponTrail = GetComponentInChildren<ParticleSystem>();
     }
 
     private void Update()
