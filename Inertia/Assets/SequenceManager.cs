@@ -40,6 +40,8 @@ public class SequenceManager : MonoBehaviour
 
     WaveManager waveManager;
 
+    [SerializeField] GameObject finalInvisWall;
+
     private void Awake()
     {
         waveManager = GetComponent<WaveManager>();
@@ -99,9 +101,7 @@ public class SequenceManager : MonoBehaviour
     {
         waveManager.enabled = false;
 
-        print("THIS IS THE END, HOLD YOUR BREATH AND COUNT TO 10, FEEL THE EARTH MOVE");
-
-        //Unlock Final Escape
+        finalInvisWall.SetActive(false);
 
         //UI Stuff (Get out of there Rye!)
 
