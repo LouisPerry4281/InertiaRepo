@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerRigidbodyMovement>().enabled = false;
         player.GetComponent<PlayerRigidbodyHealth>().enabled = false;
         player.GetComponent<PlayerRigidbodyCombat>().enabled = false;
+
+        player.GetComponentInChildren<Animator>().SetFloat(0, 0);
     }
 
     public void KillPlayer()
