@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EndTrigger : MonoBehaviour
 {
-    [SerializeField] GameObject endUI;
-    [SerializeField] GameObject player;
-
     GameManager gm;
 
     private void Start()
