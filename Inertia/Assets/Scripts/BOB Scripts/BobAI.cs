@@ -198,8 +198,6 @@ public class BobAI : MonoBehaviour
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("New State")); //Waits until attack anim is over
 
-        print("AnimOver");
-
         agent.isStopped = false;
 
         isAttacking = false;
