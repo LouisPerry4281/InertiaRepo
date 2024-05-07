@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
 
         CinemachineShake.Instance.ShakeCamera(6, .2f);
 
+        AudioManager.instance.PlaySFX("RobotDestroy");
+
         Destroy(enemyToKill);
 
         enemyCount--;

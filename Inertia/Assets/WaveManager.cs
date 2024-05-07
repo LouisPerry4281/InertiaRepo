@@ -64,9 +64,6 @@ public class WaveManager : MonoBehaviour
     {
         waveNumber++;
 
-        print(waveNumber);
-        print(waveCredits.Length);
-
         //If length of credit array matches current wave, it's the final wave
         if (waveCredits.Length == waveNumber + 1)
         {

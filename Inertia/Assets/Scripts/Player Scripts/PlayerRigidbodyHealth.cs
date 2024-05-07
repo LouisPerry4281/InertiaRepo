@@ -29,7 +29,6 @@ public class PlayerRigidbodyHealth : MonoBehaviour
         {
             return;
         }
-        print("hit");
 
         currentHealth -= damageToTake;
 
