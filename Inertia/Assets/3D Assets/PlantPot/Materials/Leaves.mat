@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Leaves
-  m_Shader: {fileID: -6465566751694194690, guid: 2d9e6ac563c6bb84ea58966892fe479a,
+  m_Shader: {fileID: -6465566751694194690, guid: e6111a0ff3904f24890b8004c5bcd537,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
