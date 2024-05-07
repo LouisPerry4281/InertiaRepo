@@ -49,7 +49,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(string name)
+    public void PlaySFX(string name, float volume, float pitch)
     {
         //Get the requested sound from the array
         Sound s = Array.Find(sfxSounds, x => x.name == name);
@@ -62,6 +62,8 @@ public class AudioManager : MonoBehaviour
         //Play the clip grabbed
         else
         {
+            sfxSource.volume = volume;
+            sfxSource.pitch = pitch;
             sfxSource.PlayOneShot(s.clip);
         }
     }

@@ -60,7 +60,7 @@ public class EnemyHealth : MonoBehaviour
             mr.material = flashMat;
         }
 
-        AudioManager.instance.PlaySFX("MetalHit");
+        AudioManager.instance.PlaySFX("MetalHit", 1, 1);
 
         //Hitstop stops the player's attack animation for a small time
         playerAnimator.speed = 0;
