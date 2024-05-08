@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] GameObject enemyPrefab;
 
-    [SerializeField] Transform spawnPoint; //Change this to an array later
+    [SerializeField] Transform[] spawnPoints;
 
     SequenceManager sequenceManager;
 
@@ -48,7 +48,10 @@ public class WaveManager : MonoBehaviour
     {
         for(int i = credits; i > 0; i--)
         {
-            GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+            int spawnIndex = Random.Range(0, spawnPoints.Length);
+            Vector3 spawnPoint = spawnPoints[spawnIndex].position;
+
+            GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
 
             enemyInstance.GetComponent<BobAI>().currentStance = BobAI.StanceSelector.Pursuit;
 
