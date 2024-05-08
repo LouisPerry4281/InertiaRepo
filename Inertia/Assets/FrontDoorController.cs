@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class FrontDoorController : MonoBehaviour
 {
+    SpawnDoorController spawnController;
+
+    private void Start()
+    {
+        spawnController = GetComponent<SpawnDoorController>();
+        spawnController.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 7) //Checks for player layer
@@ -18,9 +26,11 @@ public class FrontDoorController : MonoBehaviour
         {
             GetComponentInChildren<Animator>().Play("DoorClose");
 
+            spawnController.enabled = true;
+
             GameObject.Find("SequenceController").GetComponent<SequenceManager>().StartCombat();
 
-            GetComponent<BoxCollider>().enabled = false;
+            //GetComponent<BoxCollider>().enabled = false;
             Destroy(this);
         }
     }
