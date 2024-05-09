@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] float restartTimer;
 
+    bool isDead = false;
+
     public static int enemyCount;
 
     public static bool hasStartedCombat = false;
@@ -59,6 +61,11 @@ public class GameManager : MonoBehaviour
 
     public void KillPlayer()
     {
+        if (isDead)
+            return;
+
+        isDead = true;
+
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().isKinematic = true;
 
