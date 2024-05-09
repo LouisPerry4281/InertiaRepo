@@ -28,6 +28,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [SerializeField] LayerMask dashCollisionLayers;
     [SerializeField] GameObject dashTarget;
     [SerializeField] float wallDashBuffer;
+    [SerializeField] float dashJuiceCost;
 
     [Header("Visual Effects")]
     [SerializeField] GameObject dashEffectUp;
@@ -77,7 +78,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         HandleAnimation();
         HandleActionLines();
 
-        if (dashInput && !isDashing && canDash)
+        if (dashInput && !isDashing && canDash && currentJuice >= dashJuiceCost)
         {
             StartCoroutine(PlayerDash());
         }
@@ -174,6 +175,8 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         //Hide player mesh
         playerMesh.SetActive(false);
 
+        JuiceChange(-dashJuiceCost);
+
         float verticalOffset = 1;
 
         dashEffectUp.transform.position = new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z);
@@ -183,7 +186,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         dashEffectDown.transform.position = new Vector3(dashTarget.transform.position.x, dashTarget.transform.position.y + verticalOffset, dashTarget.transform.position.z);
         dashEffectDown.transform.LookAt(transform.position);
         dashEffectDown.GetComponentInChildren<VisualEffect>().Play();
-
+        
         //Slowly move the invisible player to the dash location
         float elapsedTime = 0;
         while (elapsedTime < dashDelay)
