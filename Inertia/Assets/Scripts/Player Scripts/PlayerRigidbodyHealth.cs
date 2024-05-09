@@ -6,6 +6,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 {
     PlayerRigidbodyMovement playerMovement;
     GameManager gameManager;
+    Animator anim;
 
     [SerializeField] float maxHealth;
     public float currentHealth;
@@ -19,6 +20,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerMovement = GetComponent<PlayerRigidbodyMovement>();
+        anim = GetComponentInChildren<Animator>();
 
         currentHealth = maxHealth;
     }
@@ -35,7 +37,10 @@ public class PlayerRigidbodyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             gameManager.KillPlayer();
+            return;
         }
+
+        anim.Play("Hurt");
 
         playerMovement.JuiceChange(-juiceLossOnHit); //When hit, reduce the player's juice
 
