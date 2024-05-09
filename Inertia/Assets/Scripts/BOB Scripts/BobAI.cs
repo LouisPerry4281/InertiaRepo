@@ -204,8 +204,10 @@ public class BobAI : MonoBehaviour
         currentStance = StanceSelector.Retreat;
     }
 
-    IEnumerator CombatStart()
+    public IEnumerator CombatStart()
     {
+        print("chnug");
+
         isSwapping = true;
 
         Instantiate(exclamationMotif, new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z), Quaternion.identity);

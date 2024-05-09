@@ -89,7 +89,7 @@ public class SequenceManager : MonoBehaviour
 
         foreach(BobAI enemy in enemies) //Sets all enemies to active
         {
-            enemy.currentStance = BobAI.StanceSelector.Pursuit;
+            GameManager.hasStartedCombat = true;
         }
 
         waveManager.enabled = true;
