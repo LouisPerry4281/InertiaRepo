@@ -45,6 +45,8 @@ public class SpawnDoorController : MonoBehaviour
             doorClosed = true;
 
             anim.Play("DoorClose");
+
+            AudioManager.instance.PlaySFX("Door", 1, 1);
         }
 
         if (enemiesInside > 0 && doorClosed)
@@ -52,6 +54,8 @@ public class SpawnDoorController : MonoBehaviour
             doorClosed = false;
 
             anim.Play("DoorOpen");
+
+            AudioManager.instance.PlaySFX("Door", 1, 1);
         }
     }
 }
