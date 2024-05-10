@@ -6,10 +6,14 @@ public class FrontDoorController : MonoBehaviour
 {
     SpawnDoorController spawnController;
 
+    GameObject gM;
+
     private void Start()
     {
         spawnController = GetComponent<SpawnDoorController>();
         spawnController.enabled = false;
+
+        gM = GameObject.Find("GameManager");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -17,6 +21,7 @@ public class FrontDoorController : MonoBehaviour
         if (other.gameObject.layer == 7) //Checks for player layer
         {
             GetComponentInChildren<Animator>().Play("DoorOpen");
+            gM.GetComponent<AudioManager>().PlaySFX("Door", 1, 1);
         }
     }
 
@@ -25,7 +30,7 @@ public class FrontDoorController : MonoBehaviour
         if (other.gameObject.layer == 7) //Checks for player layer
         {
             GetComponentInChildren<Animator>().Play("DoorClose");
-
+            gM.GetComponent<AudioManager>().PlaySFX("Door", 1, 1);
             spawnController.enabled = true;
 
             GameObject.Find("SequenceController").GetComponent<SequenceManager>().StartCombat();
