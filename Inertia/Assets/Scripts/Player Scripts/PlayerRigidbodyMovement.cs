@@ -158,6 +158,9 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         bool dashRayBlocked = false;
         dashRayBlocked = Physics.Raycast(transform.position, moveDir, out hit, dashDistance, dashCollisionLayers);
 
+        //Plays the Dashing Sound Effect
+        AudioManager.instance.PlaySFX("Dash", 1, 1);
+
         //If dash hits an obstacle, place the dash target in front of the obstacle
         if (dashRayBlocked)
         {
