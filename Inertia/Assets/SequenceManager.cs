@@ -41,6 +41,7 @@ public class SequenceManager : MonoBehaviour
     WaveManager waveManager;
 
     [SerializeField] GameObject finalInvisWall;
+    [SerializeField] Animator finalDoor;
 
     private void Awake()
     {
@@ -50,6 +51,8 @@ public class SequenceManager : MonoBehaviour
     private void Start()
     {
         currentState = SequenceState.Intro;
+
+        finalDoor.Play("DoorClose");
     }
 
     void IntroState()
@@ -102,6 +105,7 @@ public class SequenceManager : MonoBehaviour
         waveManager.enabled = false;
 
         finalInvisWall.SetActive(false);
+        finalDoor.Play("DoorOpen");
 
         //UI Stuff (Get out of there Rye!)
 
