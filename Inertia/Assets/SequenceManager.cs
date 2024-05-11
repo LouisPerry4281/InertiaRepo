@@ -43,6 +43,8 @@ public class SequenceManager : MonoBehaviour
     [SerializeField] GameObject finalInvisWall;
     [SerializeField] Animator finalDoor;
 
+    [SerializeField] GameObject alarmParent;
+
     private void Awake()
     {
         waveManager = GetComponent<WaveManager>();
@@ -98,6 +100,10 @@ public class SequenceManager : MonoBehaviour
         waveManager.enabled = true;
 
         currentState = SequenceState.Combat;
+
+        alarmParent.SetActive(true);
+
+        AudioManager.instance.PlaySFX("IntruderAlert", 1, 1);
     }
 
     private void EndSequence()

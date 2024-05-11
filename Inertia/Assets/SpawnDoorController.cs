@@ -14,7 +14,10 @@ public class SpawnDoorController : MonoBehaviour
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+    }
 
+    private void Start()
+    {
         CloseCheck();
     }
 
@@ -46,7 +49,7 @@ public class SpawnDoorController : MonoBehaviour
 
             anim.Play("DoorClose");
 
-            AudioManager.instance.PlaySFX("Door", 1, 1);
+            AudioManager.instance.PlaySFX("Door", 0.3f, 1);
         }
 
         if (enemiesInside > 0 && doorClosed)
@@ -55,7 +58,7 @@ public class SpawnDoorController : MonoBehaviour
 
             anim.Play("DoorOpen");
 
-            AudioManager.instance.PlaySFX("Door", 1, 1);
+            AudioManager.instance.PlaySFX("Door", 0.3f, 1);
         }
     }
 }
