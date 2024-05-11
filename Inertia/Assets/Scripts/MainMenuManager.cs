@@ -20,5 +20,11 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void CloseGame()
+    {
+        Invoke("CloseProgram", 1f);
+    }
+
+
 
 }
