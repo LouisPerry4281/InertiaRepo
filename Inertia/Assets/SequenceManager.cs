@@ -104,6 +104,8 @@ public class SequenceManager : MonoBehaviour
         alarmParent.SetActive(true);
 
         AudioManager.instance.PlaySFX("IntruderAlert", 1, 1);
+        
+        Invoke("Siren", 1f);
     }
 
     private void EndSequence()
@@ -117,4 +119,12 @@ public class SequenceManager : MonoBehaviour
 
         //Turn on/off any visuals
     }
+
+    void Siren() //Play's the Siren Noise every 8 seconds.
+    {
+        AudioManager.instance.PlaySFX("Siren", 1, 1);
+        Invoke("Siren", 8f);
+    }
+
+
 }
