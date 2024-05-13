@@ -104,7 +104,7 @@ public class SequenceManager : MonoBehaviour
         alarmParent.SetActive(true);
 
         AudioManager.instance.PlaySFX("IntruderAlert", 1, 1);
-        
+        AudioManager.instance.PlayMusic("Glow");
         Invoke("Siren", 1f);
     }
 
