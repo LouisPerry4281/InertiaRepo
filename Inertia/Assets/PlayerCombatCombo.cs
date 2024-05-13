@@ -9,13 +9,19 @@ public class PlayerCombatCombo : MonoBehaviour
     float lastComboEnd;
     int comboCounter;
 
+    [SerializeField] float lungeForce;
+
     Animator anim;
     Weapon weapon;
+    PlayerRigidbodyMovement playerMovement;
+    Rigidbody rb;
 
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
         weapon = GetComponentInChildren<Weapon>();
+        playerMovement = GetComponent<PlayerRigidbodyMovement>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -26,21 +32,29 @@ public class PlayerCombatCombo : MonoBehaviour
         {
             Attack();
         }
+
+       
     }
 
     void Attack()
     {
-        if (Time.time - lastComboEnd > 2f && comboCounter <= combo.Count)
+        if (Time.time - lastComboEnd > 0.8f && comboCounter <= combo.Count)
         {
             CancelInvoke("EndCombo");
 
-            if (Time.time - lastClickedTime >= 0.7f)
+            if (Time.time - lastClickedTime >= 0.5f)
             {
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 anim.Play("Attack", 0, 0);
 
                 weapon.damage = combo[comboCounter].damage;
 
+                playerMovement.StopPlayer();
+                playerMovement.enabled = false;
+
+                Physics.IgnoreLayerCollision(6, 7, true);
+
+                rb.AddForce(transform.forward * lungeForce, ForceMode.Impulse);
                 //VFX ECT HERE
 
                 comboCounter++;
@@ -58,12 +72,16 @@ public class PlayerCombatCombo : MonoBehaviour
     {
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
+            playerMovement.enabled = true;
+            Physics.IgnoreLayerCollision(6, 7, false);
             Invoke("EndCombo", 1);
         }
     }
 
-    void EndCombo()
+    public void EndCombo()
     {
+        playerMovement.enabled = true;
+        Physics.IgnoreLayerCollision(6, 7, false);
         comboCounter = 0;
         lastComboEnd = Time.time;
     }

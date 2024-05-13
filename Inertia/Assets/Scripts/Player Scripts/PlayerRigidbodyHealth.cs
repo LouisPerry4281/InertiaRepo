@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerRigidbodyHealth : MonoBehaviour
 {
     PlayerRigidbodyMovement playerMovement;
+    PlayerCombatCombo playerCombat;
     GameManager gameManager;
     Animator anim;
 
@@ -20,6 +21,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerMovement = GetComponent<PlayerRigidbodyMovement>();
+        playerCombat = GetComponent<PlayerCombatCombo>();
         anim = GetComponentInChildren<Animator>();
 
         currentHealth = maxHealth;
@@ -40,6 +42,7 @@ public class PlayerRigidbodyHealth : MonoBehaviour
             return;
         }
 
+        playerCombat.EndCombo();
         anim.Play("Hurt");
 
         playerMovement.JuiceChange(-juiceLossOnHit); //When hit, reduce the player's juice

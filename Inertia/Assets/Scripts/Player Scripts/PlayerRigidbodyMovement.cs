@@ -240,4 +240,9 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         else
             actionLines.SetFloat("Spawn", 0);
     }
+
+    public void StopPlayer()
+    {
+        rb.velocity = Vector3.zero;
+    }
 }
