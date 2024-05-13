@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
         if (enemy != null)
         {
             print("hit");
-            enemy.InitialiseDamage(damage, attackTimer);
+            enemy.InitialiseDamage(damage, attackTimer, true);
         }
     }
 

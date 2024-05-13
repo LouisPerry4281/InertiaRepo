@@ -16,7 +16,7 @@ public class RBHitboxManager : MonoBehaviour
         if (other.gameObject.layer == 6) //Collides with enemy layer
         {
             if (other.GetComponent<EnemyHealth>() != null)
-                other.gameObject.GetComponent<EnemyHealth>().InitialiseDamage(playerCombat.damage, playerCombat.attackTimer);
+                other.gameObject.GetComponent<EnemyHealth>().InitialiseDamage(playerCombat.damage, playerCombat.attackTimer, true);
         }
     }
 }

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         anim = player.GetComponentInChildren<Animator>();
     }
 
-    public void KillEnemy(GameObject enemyToKill)
+    public void KillEnemy(GameObject enemyToKill, bool shouldGiveJuice)
     {
         enemyToKill.GetComponent<BoxCollider>().enabled = false;
         //enemyToKill.GetComponent<BobAI>().enabled = false;
@@ -44,8 +44,12 @@ public class GameManager : MonoBehaviour
 
         enemyCount--;
 
-        //Adds 20% juice when an enemy is defeated
-        player.GetComponent<PlayerRigidbodyMovement>().JuiceChange(0.4f);
+        if (shouldGiveJuice)
+        {
+            //Adds 20% juice when an enemy is defeated
+            player.GetComponent<PlayerRigidbodyMovement>().JuiceChange(0.4f);
+        }
+
         sequenceManager.enemies.Remove(enemyToKill.GetComponent<BobAI>());
     }
 

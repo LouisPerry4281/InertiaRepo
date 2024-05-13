@@ -43,13 +43,13 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void InitialiseDamage(float damageToTake, float damageTimer) //The public interface for starting the damage sequence
+    public void InitialiseDamage(float damageToTake, float damageTimer, bool shouldGiveJuice) //The public interface for starting the damage sequence
     {
         if (isVulnerable)
-            StartCoroutine(TakeDamage(damageToTake, damageTimer));
+            StartCoroutine(TakeDamage(damageToTake, damageTimer, shouldGiveJuice));
     }
 
-    IEnumerator TakeDamage(float damageToTake, float damageTimer)
+    IEnumerator TakeDamage(float damageToTake, float damageTimer, bool shouldGiveJuice)
     {
         isVulnerable = false; 
 
@@ -95,7 +95,7 @@ public class EnemyHealth : MonoBehaviour
 
         //Calculates damage and checks if player is dead
         health -= damageToTake;
-        if (HealthCheck())
+        if (HealthCheck(shouldGiveJuice))
             yield return null;
 
         yield return new WaitForSeconds(stunTimer);
@@ -112,11 +112,11 @@ public class EnemyHealth : MonoBehaviour
         isVulnerable = true;
     }
 
-    private bool HealthCheck()
+    private bool HealthCheck(bool shouldGiveJuice)
     {
         if (health <= 0)
         {
-            gameManager.KillEnemy(gameObject);
+            gameManager.KillEnemy(gameObject, shouldGiveJuice);
             return true;
         }
 

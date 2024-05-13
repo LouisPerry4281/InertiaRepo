@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class PlayerCombatCombo : MonoBehaviour
     int comboCounter;
 
     [SerializeField] float lungeForce;
+    [SerializeField] GameObject specialAttackPrefab;
 
     Animator anim;
     Weapon weapon;
@@ -33,7 +35,16 @@ public class PlayerCombatCombo : MonoBehaviour
             Attack();
         }
 
-       
+       if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            SpecialAttack();
+        }
+    }
+
+    public void SpecialAttack()
+    {
+        print("Special");
+        Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
     }
 
     void Attack()
