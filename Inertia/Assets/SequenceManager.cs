@@ -105,6 +105,7 @@ public class SequenceManager : MonoBehaviour
 
         AudioManager.instance.PlaySFX("IntruderAlert", 1, 1);
         AudioManager.instance.PlayMusic("Glow");
+        //AudioManager.instance.PlayMusic("FactoryNoise"); Not currently active, as the audio manager doesnt support multiple sounds yet.
         Invoke("Siren", 1f);
     }
 
