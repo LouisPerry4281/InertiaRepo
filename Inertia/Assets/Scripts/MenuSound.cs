@@ -7,7 +7,6 @@ public class MenuSound : MonoBehaviour
     public void Sound()
     {
         gameObject.GetComponent<AudioSource>().Play();
-        print("play sound");
     }
 
 }
