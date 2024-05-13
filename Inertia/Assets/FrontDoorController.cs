@@ -10,7 +10,7 @@ public class FrontDoorController : MonoBehaviour
     {
         spawnController = GetComponent<SpawnDoorController>();
         spawnController.enabled = false;
-
+        GetComponentInChildren<Animator>().Play("DoorClose");
     }
 
     private void OnTriggerEnter(Collider other)
