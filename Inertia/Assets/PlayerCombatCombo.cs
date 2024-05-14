@@ -43,7 +43,6 @@ public class PlayerCombatCombo : MonoBehaviour
 
     public void SpecialAttack()
     {
-        print("Special");
         Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
     }
 
@@ -56,7 +55,7 @@ public class PlayerCombatCombo : MonoBehaviour
             if (Time.time - lastClickedTime >= 0.5f)
             {
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
-                anim.Play("Attack", 0, 0);
+                anim.Play("Attack", 1, 0);
 
                 weapon.damage = combo[comboCounter].damage;
 
@@ -81,7 +80,7 @@ public class PlayerCombatCombo : MonoBehaviour
 
     void ExitAttack()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (anim.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(1).IsTag("Attack"))
         {
             playerMovement.enabled = true;
             Physics.IgnoreLayerCollision(6, 7, false);
