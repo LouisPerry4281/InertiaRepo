@@ -117,6 +117,8 @@ public class SequenceManager : MonoBehaviour
         finalDoor.Play("DoorOpen");
 
         //UI Stuff (Get out of there Rye!)
+        GameObject.Find("DialogueBox").GetComponent<Animator>().SetTrigger("Trigger");
+        Invoke("DialogueBox", 6f);
 
         //Turn on/off any visuals
     }
@@ -126,6 +128,12 @@ public class SequenceManager : MonoBehaviour
         AudioManager.instance.PlaySFX("Siren", 1, 1);
         Invoke("Siren", 8f);
     }
+
+    void DialogueBox()
+    {
+        GameObject.Find("DialogueBox").GetComponent<Animator>().SetTrigger("Trigger");
+    }
+
 
 
 }
