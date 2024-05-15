@@ -13,6 +13,8 @@ public class PlayerCombatCombo : MonoBehaviour
     [SerializeField] float lungeForce;
     [SerializeField] GameObject specialAttackPrefab;
 
+    [SerializeField] GameObject weaponTrail;
+
     Animator anim;
     Weapon weapon;
     PlayerRigidbodyMovement playerMovement;
@@ -24,6 +26,7 @@ public class PlayerCombatCombo : MonoBehaviour
         weapon = GetComponentInChildren<Weapon>();
         playerMovement = GetComponent<PlayerRigidbodyMovement>();
         rb = GetComponent<Rigidbody>();
+        weaponTrail.SetActive(false);
     }
 
     private void Update()
@@ -62,6 +65,8 @@ public class PlayerCombatCombo : MonoBehaviour
                 playerMovement.StopPlayer();
                 playerMovement.enabled = false;
 
+                weaponTrail.SetActive(true);
+
                 Physics.IgnoreLayerCollision(6, 7, true);
 
                 rb.AddForce(transform.forward * lungeForce, ForceMode.Impulse);
@@ -85,6 +90,8 @@ public class PlayerCombatCombo : MonoBehaviour
             playerMovement.enabled = true;
             Physics.IgnoreLayerCollision(6, 7, false);
             Invoke("EndCombo", 1);
+
+            weaponTrail.SetActive(false);
         }
     }
 
