@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
         //Play Music Here AudioManager.instance.PlaySFX()/PlayMusic()
     }
 
-    public void PlayMusic(string name, float volume, float pitch)
+    public void PlayMusic(string name, float volume, float pitch, bool loop)
     {
         //Get the requested sound from the array
         Sound s = Array.Find(musicSounds, x => x.name == name);
@@ -49,6 +49,7 @@ public class AudioManager : MonoBehaviour
         //Play the clip grabbed
         audioSourceInstance.volume = volume;
         audioSourceInstance.pitch = pitch;
+        audioSourceInstance.loop = loop;
         audioSourceInstance.PlayOneShot(s.clip);
     }
 
