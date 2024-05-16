@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Rendering;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class AudioManager : MonoBehaviour
     public Sound[] sfxSounds;
     public AudioSource musicSource;
     public AudioSource sfxSource;
+
+    List<AudioSource> audioSources = new List<AudioSource>();
 
     private void Awake()
     {
@@ -31,7 +34,7 @@ public class AudioManager : MonoBehaviour
         //Play Music Here AudioManager.instance.PlaySFX()/PlayMusic()
     }
 
-    public void PlayMusic(string name)
+    public void PlayMusic(string name, float volume, float pitch)
     {
         //Get the requested sound from the array
         Sound s = Array.Find(musicSounds, x => x.name == name);
@@ -41,12 +44,12 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Sound Not Found");
         }
 
-        //Prime the Audiosource with the grabbed clip
-        else
-        {
-            musicSource.clip = s.clip;
-            musicSource.Play();
-        }
+        AudioSource audioSourceInstance = gameObject.AddComponent<AudioSource>();
+
+        //Play the clip grabbed
+        audioSourceInstance.volume = volume;
+        audioSourceInstance.pitch = pitch;
+        audioSourceInstance.PlayOneShot(s.clip);
     }
 
     public void PlaySFX(string name, float volume, float pitch)
@@ -57,14 +60,15 @@ public class AudioManager : MonoBehaviour
         if (s == null)
         {
             Debug.Log("Sound Not Found");
+            return;
         }
 
+        AudioSource audioSourceInstance = gameObject.AddComponent<AudioSource>();
+
         //Play the clip grabbed
-        else
-        {
-            sfxSource.volume = volume;
-            sfxSource.pitch = pitch;
-            sfxSource.PlayOneShot(s.clip);
-        }
+        audioSourceInstance.volume = volume;
+        audioSourceInstance.pitch = pitch;
+        audioSourceInstance.PlayOneShot(s.clip);
+      
     }
 }
