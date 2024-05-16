@@ -11,6 +11,7 @@ public class PlayerCombatCombo : MonoBehaviour
     int comboCounter;
 
     [SerializeField] float lungeForce;
+    [SerializeField] float specialCost;
     [SerializeField] GameObject specialAttackPrefab;
 
     [SerializeField] GameObject weaponTrail;
@@ -46,7 +47,13 @@ public class PlayerCombatCombo : MonoBehaviour
 
     public void SpecialAttack()
     {
+        if (playerMovement.currentJuice < specialCost)
+        {
+            return;
+        }
+
         Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
+        playerMovement.JuiceChange(-specialCost);
     }
 
     void Attack()
@@ -55,7 +62,7 @@ public class PlayerCombatCombo : MonoBehaviour
         {
             CancelInvoke("EndCombo");
 
-            if (Time.time - lastClickedTime >= 0.5f)
+            if (Time.time - lastClickedTime >= 0.3f)
             {
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 anim.Play("Attack", 1, 0);
