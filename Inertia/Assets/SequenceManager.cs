@@ -45,6 +45,11 @@ public class SequenceManager : MonoBehaviour
 
     [SerializeField] GameObject alarmParent;
 
+    [SerializeField] GameObject text4;
+    [SerializeField] GameObject text3;
+    [SerializeField] GameObject text2;
+    [SerializeField] GameObject text1;
+
     private void Awake()
     {
         waveManager = GetComponent<WaveManager>();
@@ -104,7 +109,7 @@ public class SequenceManager : MonoBehaviour
         alarmParent.SetActive(true);
 
         AudioManager.instance.PlaySFX("IntruderAlert", 1, 1);
-        AudioManager.instance.PlayMusic("Glow", 1, 1, false);
+        AudioManager.instance.PlayMusic("Glow", 0.4f, 1, false);
         AudioManager.instance.PlayMusic("FactoryNoise", 0.1f, 1, true);
         Invoke("Siren", 1f);
     }
@@ -118,6 +123,8 @@ public class SequenceManager : MonoBehaviour
 
         //UI Stuff (Get out of there Rye!)
         GameObject.Find("DialogueBox").GetComponent<Animator>().SetTrigger("Trigger");
+        text4.SetActive(true);
+        Invoke("VoiceLine4", 1f);
         Invoke("DialogueBox", 6f);
 
         //Turn on/off any visuals
@@ -132,6 +139,17 @@ public class SequenceManager : MonoBehaviour
     void DialogueBox()
     {
         GameObject.Find("DialogueBox").GetComponent<Animator>().SetTrigger("Trigger");
+    }
+
+    void VoiceLine4()
+    {
+        AudioManager.instance.PlaySFX("ELI4", 1.1f, 1);
+        Invoke("HangUp", 4f);
+    }
+
+    void HangUp()
+    {
+        AudioManager.instance.PlaySFX("HangUp", 1.2f, 1);
     }
 
 
