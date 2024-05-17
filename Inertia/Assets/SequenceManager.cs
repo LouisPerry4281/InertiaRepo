@@ -49,6 +49,7 @@ public class SequenceManager : MonoBehaviour
     [SerializeField] GameObject text3;
     [SerializeField] GameObject text2;
     [SerializeField] GameObject text1;
+    [SerializeField] GameObject dialogueBox;
 
     private void Awake()
     {
@@ -60,6 +61,9 @@ public class SequenceManager : MonoBehaviour
         currentState = SequenceState.Intro;
 
         finalDoor.Play("DoorClose");
+
+        StartCoroutine(StartSequence());
+
     }
 
     void IntroState()
@@ -122,13 +126,63 @@ public class SequenceManager : MonoBehaviour
         finalDoor.Play("DoorOpen");
 
         //UI Stuff (Get out of there Rye!)
-        GameObject.Find("DialogueBox").GetComponent<Animator>().SetTrigger("Trigger");
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
         text4.SetActive(true);
         Invoke("VoiceLine4", 1f);
         Invoke("DialogueBox", 6f);
 
         //Turn on/off any visuals
     }
+
+
+
+    IEnumerator StartSequence()
+    {
+        yield return new WaitForSeconds(1f); //Wait Timer From Start of Game
+
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); //Trigger the Dialogue Box on for the 1st voiceline
+        yield return new WaitForSeconds(1f);
+        AudioManager.instance.PlaySFX("ELI1", 0.8f, 1); //Play the voiceline
+        yield return new WaitForSeconds(4f);
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); //Turn Off the Dialogue Box
+
+        yield return new WaitForSeconds(1f); //Wait Timer Between 2nd Dialogue
+
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 1st bit of Dialogue
+        yield return new WaitForSeconds(1f);
+        //AudioManager.instance.PlaySFX("RYE1", 1f, 1); <------- PLAY RYE's FIRST VOICELINE HERE
+        yield return new WaitForSeconds(4f);
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
+
+        yield return new WaitForSeconds(1f); //Wait Timer Between 3rd Dialogue
+
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // ELI's 2nd bit of Dialogue
+        yield return new WaitForSeconds(1f);
+        AudioManager.instance.PlaySFX("ELI2", 0.8f, 1);
+        yield return new WaitForSeconds(2f);
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
+
+        yield return new WaitForSeconds(1f); //Wait Timer Between 4th Dialogue
+
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 2nd bit of Dialogue
+        yield return new WaitForSeconds(1f);
+        //AudioManager.instance.PlaySFX("RYE2", 1f, 1); <------- PLAY RYE's SECOND VOICELINE HERE
+        yield return new WaitForSeconds(4f);
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
+
+        yield return new WaitForSeconds(1f); //Wait Timer Between 5th Dialogue
+
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // ELI's 3rd bit of Dialogue
+        yield return new WaitForSeconds(1f);
+        AudioManager.instance.PlaySFX("ELI3", 0.8f, 1);
+        yield return new WaitForSeconds(0.75f);
+        AudioManager.instance.PlaySFX("HangUp", 1.2f, 1); //Plays the Hang Up noise as well.
+        yield return new WaitForSeconds(0.3f);
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
+
+        yield return null;
+    }
+
 
     void Siren() //Play's the Siren Noise every 8 seconds.
     {
@@ -138,7 +192,7 @@ public class SequenceManager : MonoBehaviour
 
     void DialogueBox()
     {
-        GameObject.Find("DialogueBox").GetComponent<Animator>().SetTrigger("Trigger");
+        dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
     }
 
     void VoiceLine4()
@@ -151,7 +205,6 @@ public class SequenceManager : MonoBehaviour
     {
         AudioManager.instance.PlaySFX("HangUp", 1.2f, 1);
     }
-
 
 
 }
