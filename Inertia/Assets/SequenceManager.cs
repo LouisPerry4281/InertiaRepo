@@ -51,6 +51,9 @@ public class SequenceManager : MonoBehaviour
     [SerializeField] GameObject text1;
     [SerializeField] GameObject dialogueBox;
     [SerializeField] GameObject tasks;
+    [SerializeField] GameObject RyeText1;
+    [SerializeField] GameObject RyeText2;
+    [SerializeField] GameObject RyeText3;
 
     private void Awake()
     {
@@ -140,7 +143,7 @@ public class SequenceManager : MonoBehaviour
     IEnumerator StartSequence()
     {
         yield return new WaitForSeconds(1f); //Wait Timer From Start of Game
-        AudioManager.instance.PlaySFX("Ring", 1f, 1);
+        AudioManager.instance.PlaySFX("Ring", 0.2f, 1);
 
         yield return new WaitForSeconds(4.5f); //Wait for Ringing to end
 
@@ -156,7 +159,7 @@ public class SequenceManager : MonoBehaviour
 
 
         text1.SetActive(false); //Sets ELI's first dialogue text to inactive
-        //RyeText1.SetActive(true); //Sets Ryes 1st dialogue text to active
+        RyeText1.SetActive(true); //Sets Ryes 1st dialogue text to active
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 1st bit of Dialogue
         yield return new WaitForSeconds(1f);
         //AudioManager.instance.PlaySFX("RYE1", 1f, 1); <------- PLAY RYE's FIRST VOICELINE HERE
@@ -165,7 +168,7 @@ public class SequenceManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f); //Wait Timer Between 3rd Dialogue
 
-        //RyeText1.SetActive(false); //Sets Rye's first dialogue text to inactive
+        RyeText1.SetActive(false); //Sets Rye's first dialogue text to inactive
         text2.SetActive(true); //Sets ELI's second dialogue text to active
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // ELI's 2nd bit of Dialogue
         yield return new WaitForSeconds(1f);
@@ -176,7 +179,7 @@ public class SequenceManager : MonoBehaviour
         yield return new WaitForSeconds(1f); //Wait Timer Between 4th Dialogue
 
         text2.SetActive(false); //Sets ELI's second text to false
-        //RyeText2.SetActive(true); //Sets Rye's second text to true
+        RyeText2.SetActive(true); //Sets Rye's second text to true
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 2nd bit of Dialogue
         yield return new WaitForSeconds(1f);
         //AudioManager.instance.PlaySFX("RYE2", 1f, 1); <------- PLAY RYE's SECOND VOICELINE HERE
@@ -186,7 +189,7 @@ public class SequenceManager : MonoBehaviour
         yield return new WaitForSeconds(1f); //Wait Timer Between 5th Dialogue
 
         text3.SetActive(true); //Sets ELI's third text to true
-        //RyeText2.SetActive(false) //Sets Rye's second text to false
+        RyeText2.SetActive(false); //Sets Rye's second text to false
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // ELI's 3rd bit of Dialogue
         yield return new WaitForSeconds(1f);
         AudioManager.instance.PlaySFX("ELI3", 0.8f, 1);
