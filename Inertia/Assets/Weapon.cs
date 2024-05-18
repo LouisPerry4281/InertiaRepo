@@ -19,7 +19,6 @@ public class Weapon : MonoBehaviour
         EnemyHealth enemy = other.gameObject.GetComponent<EnemyHealth>();
         if (enemy != null)
         {
-            print("hit");
             enemy.InitialiseDamage(damage, attackTimer, true);
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 public class AudioManager : MonoBehaviour
 {
@@ -10,8 +11,6 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] musicSounds;
     public Sound[] sfxSounds;
-    public AudioSource musicSource;
-    public AudioSource sfxSource;
 
     List<AudioSource> audioSources = new List<AudioSource>();
 
@@ -70,6 +69,7 @@ public class AudioManager : MonoBehaviour
         audioSourceInstance.volume = volume;
         audioSourceInstance.pitch = pitch;
         audioSourceInstance.PlayOneShot(s.clip);
+        Destroy(audioSourceInstance, 5);
       
     }
 }
