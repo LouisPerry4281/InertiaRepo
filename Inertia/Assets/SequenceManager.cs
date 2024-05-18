@@ -50,6 +50,7 @@ public class SequenceManager : MonoBehaviour
     [SerializeField] GameObject text2;
     [SerializeField] GameObject text1;
     [SerializeField] GameObject dialogueBox;
+    [SerializeField] GameObject tasks;
 
     private void Awake()
     {
@@ -196,6 +197,7 @@ public class SequenceManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         text3.SetActive(false); //Sets ELI's third text back to false
+        tasks.SetActive(true); //Sets the Task list to active
 
         yield return null;
     }
