@@ -55,6 +55,8 @@ public class SequenceManager : MonoBehaviour
     [SerializeField] GameObject RyeText2;
     [SerializeField] GameObject RyeText3;
 
+    AudioSource musicSource;
+
     private void Awake()
     {
         waveManager = GetComponent<WaveManager>();
@@ -65,6 +67,8 @@ public class SequenceManager : MonoBehaviour
         currentState = SequenceState.Intro;
 
         finalDoor.Play("DoorClose");
+
+        musicSource = GetComponent<AudioSource>();
 
         StartCoroutine(StartSequence());
 
@@ -116,10 +120,10 @@ public class SequenceManager : MonoBehaviour
 
         alarmParent.SetActive(true);
 
-        AudioManager.instance.PlaySFX("IntruderAlert", 1, 1);
-        AudioManager.instance.PlayMusic("Glow", 0.4f, 1, false);
-        AudioManager.instance.PlayMusic("FactoryNoise", 0.1f, 1, true);
         Invoke("Siren", 1f);
+
+        AudioManager.instance.PlaySFX("IntruderAlert", 1, 1);
+        AudioManager.instance.PlayMusic("Glow", 0.4f, 1, true);
     }
 
     private void EndSequence()
@@ -142,6 +146,8 @@ public class SequenceManager : MonoBehaviour
 
     IEnumerator StartSequence()
     {
+        AudioManager.instance.PlayMusic("FactoryNoise", 0.1f, 1, true);
+
         yield return new WaitForSeconds(1f); //Wait Timer From Start of Game
         AudioManager.instance.PlaySFX("Ring", 0.2f, 1);
 
@@ -227,6 +233,4 @@ public class SequenceManager : MonoBehaviour
     {
         AudioManager.instance.PlaySFX("HangUp", 1.2f, 1);
     }
-
-
 }
