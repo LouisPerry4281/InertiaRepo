@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerRigidbodyHealth : MonoBehaviour
 {
@@ -17,6 +19,10 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 
     [SerializeField] float juiceLossOnHit = 0.2f;
 
+    public Vignette vignetteComponent;
+
+    [SerializeField] VolumeProfile vp;
+
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -25,6 +31,8 @@ public class PlayerRigidbodyHealth : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         currentHealth = maxHealth;
+
+        
     }
 
     public void InitializeDamage(float damageToTake)
@@ -55,4 +63,18 @@ public class PlayerRigidbodyHealth : MonoBehaviour
     {
         isVulnerable = true;
     }
+
+    private void Update()
+    {
+
+        //GameObject.Find("Global Volume").GetComponent<Volume>().profile.TryGet<Vignette>(out vignetteComponent);
+        //vignetteComponent.intensity = new ClampedFloatParameter(0.2f, 0, 1, true);
+
+        //vp.TryGet<Vignette>(out vignetteComponent);
+        //vignetteComponent.intensity = new ClampedFloatParameter(0.2f, 0, 1, true);
+    }
+
+
+
+
 }
