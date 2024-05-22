@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,11 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 
     [SerializeField] float maxHealth;
     public float currentHealth;
+
+    bool healthCountdown;
+    private float healthCooldownTimer;
+    [SerializeField] float healthCooldownTime;
+    [SerializeField] float healthRestoreRate;
 
     [SerializeField] float invulnFrames;
     bool isVulnerable = true;
@@ -31,8 +37,6 @@ public class PlayerRigidbodyHealth : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         currentHealth = maxHealth;
-
-        
     }
 
     public void InitializeDamage(float damageToTake)
@@ -57,6 +61,8 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 
         isVulnerable = false;
         Invoke("ReVulnerable", invulnFrames);
+
+        HealthCountdownStart();
     }
 
     void ReVulnerable()
@@ -66,6 +72,13 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 
     private void Update()
     {
+        healthCooldownTimer -= Time.deltaTime;
+
+        if (healthCooldownTimer <= 0 && currentHealth < maxHealth && healthCountdown)
+        {
+            RestoreHealth();
+        }
+
 
         //GameObject.Find("Global Volume").GetComponent<Volume>().profile.TryGet<Vignette>(out vignetteComponent);
         //vignetteComponent.intensity = new ClampedFloatParameter(0.2f, 0, 1, true);
@@ -74,7 +87,20 @@ public class PlayerRigidbodyHealth : MonoBehaviour
         //vignetteComponent.intensity = new ClampedFloatParameter(0.2f, 0, 1, true);
     }
 
+    private void RestoreHealth()
+    {
+        currentHealth += healthRestoreRate * Time.deltaTime;
 
+        if (currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+            healthCountdown = false;
+        }
+    }
 
-
+    private void HealthCountdownStart()
+    {
+        healthCooldownTimer = healthCooldownTime;
+        healthCountdown = true;
+    }
 }
