@@ -70,7 +70,19 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 8cacc0c3c1361c245922e2b8abc6b80a, type: 3}
+        m_Name: Yellow
+        m_Overridden: 1
+      - m_Value: {fileID: 2800000, guid: a755138210d1ee0499d9ead57c852b9a, type: 3}
+        m_Name: POW
+        m_Overridden: 1
+      - m_Value: {fileID: 2800000, guid: 2114a6cd11ffada48a1aaf102d041531, type: 3}
+        m_Name: Blue
+        m_Overridden: 1
+      - m_Value: {fileID: 2800000, guid: 9bad744e109598d4e9d7329001b077d7, type: 3}
+        m_Name: BOOM
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!73398921 &6138736168057417545
