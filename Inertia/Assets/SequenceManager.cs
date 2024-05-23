@@ -43,6 +43,9 @@ public class SequenceManager : MonoBehaviour
     [SerializeField] GameObject finalInvisWall;
     [SerializeField] Animator finalDoor;
 
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] Transform spawnPoint;
+
     [SerializeField] GameObject alarmParent;
 
     [SerializeField] GameObject text4;
@@ -129,6 +132,12 @@ public class SequenceManager : MonoBehaviour
     private void EndSequence()
     {
         waveManager.enabled = false;
+
+        alarmParent.SetActive(false);
+        CancelInvoke();
+
+        GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        enemyInstance.GetComponent<BobAI>().currentStance = BobAI.StanceSelector.Pursuit;
 
         finalInvisWall.SetActive(false);
         finalDoor.Play("DoorOpen");
