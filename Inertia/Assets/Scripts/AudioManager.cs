@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] musicSounds;
     public Sound[] sfxSounds;
+
+    public AudioMixerGroup audioMixer;
 
     List<AudioSource> audioSources = new List<AudioSource>();
 
@@ -49,6 +52,7 @@ public class AudioManager : MonoBehaviour
         audioSourceInstance.volume = volume;
         audioSourceInstance.pitch = pitch;
         audioSourceInstance.loop = loop;
+        audioSourceInstance.outputAudioMixerGroup = audioMixer;
         audioSourceInstance.PlayOneShot(s.clip);
     }
 
@@ -68,6 +72,7 @@ public class AudioManager : MonoBehaviour
         //Play the clip grabbed
         audioSourceInstance.volume = volume;
         audioSourceInstance.pitch = pitch;
+        audioSourceInstance.outputAudioMixerGroup = audioMixer;
         audioSourceInstance.PlayOneShot(s.clip);
         Destroy(audioSourceInstance, 5);
       
