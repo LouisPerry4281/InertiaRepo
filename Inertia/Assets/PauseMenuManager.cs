@@ -8,7 +8,7 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
 
-    bool isPaused;
+    public static bool isPaused;
 
     private void Update()
     {
@@ -28,6 +28,8 @@ public class PauseMenuManager : MonoBehaviour
 
     public void Pause()
     {
+        isPaused = true;
+
         Time.timeScale = 0;
 
         Cursor.lockState = CursorLockMode.Confined;
@@ -45,6 +47,8 @@ public class PauseMenuManager : MonoBehaviour
 
     public void CloseMenus()
     {
+        isPaused = false;
+
         Time.timeScale = 1;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -56,6 +60,10 @@ public class PauseMenuManager : MonoBehaviour
 
     public void MainMenu()
     {
+        isPaused = false;
+
+        Time.timeScale = 1;
+
         //Loads the main menu
         SceneManager.LoadScene(0);
     }

@@ -32,6 +32,11 @@ public class PlayerCombatCombo : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuManager.isPaused) //If game is paused, do not handle input
+        {
+            return;
+        }
+
         ExitAttack();
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
