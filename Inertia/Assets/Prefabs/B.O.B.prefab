@@ -150,7 +150,7 @@ MonoBehaviour:
   minPursuitDistance: 5
   maxAttackDistance: 12
   meleeRange: 2
-  chanceToAttack: 10
+  chanceToAttack: 2
   retreatDistance: 7
   retreatTimer: 5
   currentStance: 0

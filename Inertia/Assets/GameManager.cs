@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
 
         player.GetComponent<PlayerRigidbodyMovement>().enabled = false;
         player.GetComponent<PlayerRigidbodyHealth>().enabled = false;
-        player.GetComponent<PlayerRigidbodyCombat>().enabled = false;
+        player.GetComponent<PlayerCombatCombo>().enabled = false;
 
         juiceUI.SetActive(false);
         deathUI.SetActive(true);

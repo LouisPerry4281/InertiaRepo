@@ -104,6 +104,8 @@ public class PlayerCombatCombo : MonoBehaviour
             Invoke("EndCombo", 1);
 
             weaponTrail.SetActive(false);
+
+            CancelInvoke("ExitAttack");
         }
     }
 
@@ -113,5 +115,7 @@ public class PlayerCombatCombo : MonoBehaviour
         Physics.IgnoreLayerCollision(6, 7, false);
         comboCounter = 0;
         lastComboEnd = Time.time;
+
+        CancelInvoke("EndCombo");
     }
 }
