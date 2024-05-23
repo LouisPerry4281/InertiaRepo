@@ -77,4 +77,14 @@ public class AudioManager : MonoBehaviour
         Destroy(audioSourceInstance, 5);
       
     }
+
+    public void StopAllAudio()
+    {
+        AudioSource[] audioSources = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+
+        foreach (AudioSource a in audioSources)
+        {
+            Destroy(a);
+        }
+    }
 }
