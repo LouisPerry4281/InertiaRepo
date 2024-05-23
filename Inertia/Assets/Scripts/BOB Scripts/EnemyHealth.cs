@@ -98,6 +98,10 @@ public class EnemyHealth : MonoBehaviour
         if (HealthCheck(shouldGiveJuice))
             yield return null;
 
+        yield return new WaitForSeconds(damageTimer);
+
+        isVulnerable = true;
+
         yield return new WaitForSeconds(stunTimer);
 
         //Re-enables the navmesh agent and disables rigidbody functionality
@@ -105,11 +109,7 @@ public class EnemyHealth : MonoBehaviour
         agent.enabled = true;
         agent.updatePosition = true;
 
-        yield return new WaitForSeconds(damageTimer);
-
         aiScript.currentStance = BobAI.StanceSelector.Retreat; //Starts to retreat
-
-        isVulnerable = true;
     }
 
     private bool HealthCheck(bool shouldGiveJuice)
