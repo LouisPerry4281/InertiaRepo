@@ -5,9 +5,12 @@ using UnityEngine;
 public class FrontDoorController : MonoBehaviour
 {
     SpawnDoorController spawnController;
+    InsideLevelCheck levelCheck;
 
     private void Start()
     {
+        levelCheck = GetComponentInChildren<InsideLevelCheck>();
+
         spawnController = GetComponent<SpawnDoorController>();
         spawnController.enabled = false;
         GetComponentInChildren<Animator>().Play("DoorClose");
@@ -28,12 +31,15 @@ public class FrontDoorController : MonoBehaviour
         {
             GetComponentInChildren<Animator>().Play("DoorClose");
             AudioManager.instance.PlaySFX("Door", 1, 1);
-            spawnController.enabled = true;
 
-            GameObject.Find("SequenceController").GetComponent<SequenceManager>().StartCombat();
+            if (levelCheck.isInLevel)
+            {
+                spawnController.enabled = true;
 
-            //GetComponent<BoxCollider>().enabled = false;
-            Destroy(this);
+                GameObject.Find("SequenceController").GetComponent<SequenceManager>().StartCombat();
+
+                Destroy(this);
+            }
         }
     }
 }
