@@ -52,7 +52,13 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 2
+        m_Name: Lifetime
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -66,7 +72,60 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: -0.0015182495
+            value: 0.0048828125
+            inSlope: 0.85293555
+            outSlope: 0.85293555
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.54447067
+            value: 0.47057617
+            inSlope: 2.7856128
+            outSlope: 2.7856128
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.70901453
+            value: 0.9963261
+            inSlope: 0.46798697
+            outSlope: 0.46798697
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.91847694
+            value: 0.63541347
+            inSlope: -5.193984
+            outSlope: -5.193984
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1.000663
+            value: 0.0029079097
+            inSlope: -7.538334
+            outSlope: -7.538334
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: Growth
+        m_Overridden: 0
     m_Gradient:
       m_Array: []
     m_NamedObject:
@@ -132,7 +191,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 4.3
+  m_Radius: 0.00001
   m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &6694201847065011799
 MonoBehaviour:
@@ -146,5 +205,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014941ba0ab06354597f939e57af501b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeModifier: 0.75
+  sizeModifier: 2
   speedModifier: 0
+  timeModifier: 2
+  animCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0015182495
+      value: 0.0048828125
+      inSlope: 0.85293555
+      outSlope: 0.85293555
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.54447067
+      value: 0.47057617
+      inSlope: 2.7856128
+      outSlope: 2.7856128
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.70901453
+      value: 0.9963261
+      inSlope: 0.46798697
+      outSlope: 0.46798697
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.91847694
+      value: 0.63541347
+      inSlope: -5.193984
+      outSlope: -5.193984
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.000663
+      value: 0.0029079097
+      inSlope: -7.538334
+      outSlope: -7.538334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
