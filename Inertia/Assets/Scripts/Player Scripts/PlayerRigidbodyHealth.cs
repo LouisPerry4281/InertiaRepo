@@ -25,9 +25,9 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 
     [SerializeField] float juiceLossOnHit = 0.2f;
 
-    public Vignette vignetteComponent;
+    [SerializeField] Material vignetteMat;
 
-    [SerializeField] VolumeProfile vp;
+    float vignetteAmount;
 
     private void Start()
     {
@@ -37,6 +37,8 @@ public class PlayerRigidbodyHealth : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         currentHealth = maxHealth;
+
+
     }
 
     public void InitializeDamage(float damageToTake)
@@ -82,9 +84,9 @@ public class PlayerRigidbodyHealth : MonoBehaviour
 
         //GameObject.Find("Global Volume").GetComponent<Volume>().profile.TryGet<Vignette>(out vignetteComponent);
         //vignetteComponent.intensity = new ClampedFloatParameter(0.2f, 0, 1, true);
-
-        //vp.TryGet<Vignette>(out vignetteComponent);
-        //vignetteComponent.intensity = new ClampedFloatParameter(0.2f, 0, 1, true);
+        vignetteMat.SetFloat("_VignetteIntensity", vignetteAmount);
+        vignetteAmount = currentHealth / maxHealth;
+        
     }
 
     private void RestoreHealth()
