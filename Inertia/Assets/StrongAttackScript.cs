@@ -31,7 +31,7 @@ public class StrongAttackScript : MonoBehaviour
         EnemyHealth enemy = other.gameObject.GetComponent<EnemyHealth>();
         if (enemy != null)
         {
-            enemy.InitialiseDamage(10000, 0, false); //Basically Infinite Damage
+            enemy.InitialiseDamage(100, 0, false);
         }
     }
 
