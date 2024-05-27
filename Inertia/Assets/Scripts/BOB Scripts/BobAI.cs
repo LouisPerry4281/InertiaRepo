@@ -108,7 +108,7 @@ public class BobAI : MonoBehaviour
         else if (distanceFromPlayer <= minPursuitDistance) //Too close to player
         {
             agent.isStopped = false;
-            readyToAttack = false;
+            readyToAttack = true;
 
             Vector3 direction = (player.transform.position - transform.position).normalized;
             agent.SetDestination(transform.position + direction * -5);
