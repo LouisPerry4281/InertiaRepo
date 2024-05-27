@@ -17,6 +17,7 @@ public class BERTHAAtt : MonoBehaviour
     public void HitGround()
     {
         CinemachineShake.Instance.ShakeCamera(cameraShakeMagnitude, cameraShakeLength);
+        AudioManager.instance.PlaySFX("RockSmash", 1, 1);
 
         if (isSecondHit)
         {
