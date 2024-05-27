@@ -11,9 +11,14 @@ public class FireExtinguisher : MonoBehaviour
 
     bool isDamaged;
 
+    [SerializeField] GameObject smokeVFX;
+    [SerializeField] Transform smokeTarget;
+    [SerializeField] GameObject motif;
+
     [SerializeField] float initialForce;
     [SerializeField] float force;
     [SerializeField] float forceMultiplier;
+    [SerializeField] float maxForce;
 
     private void Start()
     {
@@ -27,8 +32,15 @@ public class FireExtinguisher : MonoBehaviour
         {
             isDamaged = true;
             rb.isKinematic = false;
-            rb.AddForce((player.transform.position - transform.position).normalized * initialForce * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForceAtPosition((player.transform.position - transform.position).normalized * initialForce * Time.deltaTime, player.position, ForceMode.Impulse);
+            Instantiate(smokeVFX, smokeTarget);
+
+            rb.excludeLayers = 7;
+
             AudioManager.instance.PlaySFX("MetalHit", 0.5f, 1);
+            AudioManager.instance.PlaySFX("Hiss", 0.7f, 1.5f);
+
+            Invoke("Explode", 5);
         }
     }
 
@@ -43,8 +55,13 @@ public class FireExtinguisher : MonoBehaviour
 
     void Launch()
     {
-        rb.AddForce(transform.up * force * Time.deltaTime);
+        rb.AddForce(-transform.up * Mathf.Clamp(force, 0.0f, maxForce) * Time.deltaTime);
     }
 
-
+    void Explode()
+    {
+        AudioManager.instance.PlaySFX("Pop", 1.5f, 0.5f);
+        Instantiate(motif, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 }
