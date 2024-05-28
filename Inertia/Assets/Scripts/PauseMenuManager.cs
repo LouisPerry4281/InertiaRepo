@@ -7,6 +7,7 @@ public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject creditsMenu;
 
     public static bool isPaused;
 
@@ -41,8 +42,17 @@ public class PauseMenuManager : MonoBehaviour
 
     public void Settings()
     {
-        pauseMenu.SetActive(false);
-        settingsMenu.SetActive(true);
+        //pauseMenu.SetActive(false);
+        //settingsMenu.SetActive(true);
+        if(settingsMenu.activeSelf == true)
+        {
+            settingsMenu.SetActive(false);
+        }
+        else
+        {
+            settingsMenu.SetActive(true);
+            creditsMenu.SetActive(false);
+        }
     }
 
     public void CloseMenus()
@@ -69,4 +79,19 @@ public class PauseMenuManager : MonoBehaviour
         //Loads the main menu
         SceneManager.LoadScene(0);
     }
+
+    public void Credits()
+    {
+        if (creditsMenu.activeSelf == true)
+        {
+            creditsMenu.SetActive(false);
+        }
+        else
+        {
+            creditsMenu.SetActive(true);
+            settingsMenu.SetActive(false);
+        }
+    }
+
+
 }
