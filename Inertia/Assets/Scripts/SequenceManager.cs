@@ -177,7 +177,7 @@ public class SequenceManager : MonoBehaviour
         RyeText1.SetActive(true); //Sets Ryes 1st dialogue text to active
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 1st bit of Dialogue
         yield return new WaitForSeconds(1f);
-        AudioManager.instance.PlaySFX("RYE1", 1f, 1);
+        AudioManager.instance.PlaySFX("RYE1", 0.8f, 1);
         yield return new WaitForSeconds(4f);
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
 
@@ -197,7 +197,7 @@ public class SequenceManager : MonoBehaviour
         RyeText2.SetActive(true); //Sets Rye's second text to true
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 2nd bit of Dialogue
         yield return new WaitForSeconds(1f);
-        AudioManager.instance.PlaySFX("RYE2", 1f, 1);
+        AudioManager.instance.PlaySFX("RYE2", 0.8f, 1);
         yield return new WaitForSeconds(4f);
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
 
