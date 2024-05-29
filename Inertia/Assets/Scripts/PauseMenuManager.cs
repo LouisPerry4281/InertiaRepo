@@ -66,6 +66,7 @@ public class PauseMenuManager : MonoBehaviour
 
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
     }
 
     public void MainMenu()
