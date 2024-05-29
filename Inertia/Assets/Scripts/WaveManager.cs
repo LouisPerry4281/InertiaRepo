@@ -63,6 +63,25 @@ public class WaveManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator FinalSpawnEnemies()
+    {
+        for (int i = 10000; i > 0; i--) //Effetively Infinite Spawning
+        {
+            int spawnIndex = Random.Range(0, spawnPoints.Length);
+            Vector3 spawnPoint = spawnPoints[spawnIndex].position;
+
+            GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
+
+            enemyInstance.GetComponent<BobAI>().currentStance = BobAI.StanceSelector.Pursuit;
+
+            sequenceManager.enemies.Add(enemyInstance.GetComponent<BobAI>());
+
+            yield return new WaitForSeconds(enemySpawnInterval);
+        }
+
+        yield return null;
+    }
+
     void NextWave()
     {
         waveNumber++;

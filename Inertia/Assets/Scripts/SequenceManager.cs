@@ -131,10 +131,10 @@ public class SequenceManager : MonoBehaviour
 
     private void EndSequence()
     {
-        waveManager.enabled = false;
-
         alarmParent.SetActive(false);
         CancelInvoke();
+
+        waveManager.StartCoroutine(waveManager.FinalSpawnEnemies());
 
         GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
         enemyInstance.GetComponent<BobAI>().currentStance = BobAI.StanceSelector.Pursuit;
@@ -146,7 +146,7 @@ public class SequenceManager : MonoBehaviour
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
         text4.SetActive(true);
         Invoke("VoiceLine4", 1f);
-        Invoke("DialogueBox", 6f);
+        Invoke("DialogueBox", 4.5f);
 
         //Turn on/off any visuals
     }
@@ -170,7 +170,7 @@ public class SequenceManager : MonoBehaviour
         yield return new WaitForSeconds(4f);
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); //Turn Off the Dialogue Box
 
-        yield return new WaitForSeconds(1f); //Wait Timer Between 2nd Dialogue
+        yield return new WaitForSeconds(0.5f); //Wait Timer Between 2nd Dialogue
 
 
         text1.SetActive(false); //Sets ELI's first dialogue text to inactive
@@ -178,30 +178,30 @@ public class SequenceManager : MonoBehaviour
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 1st bit of Dialogue
         yield return new WaitForSeconds(1f);
         AudioManager.instance.PlaySFX("RYE1", 0.8f, 1);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
 
-        yield return new WaitForSeconds(1f); //Wait Timer Between 3rd Dialogue
+        yield return new WaitForSeconds(0.5f); //Wait Timer Between 3rd Dialogue
 
         RyeText1.SetActive(false); //Sets Rye's first dialogue text to inactive
         text2.SetActive(true); //Sets ELI's second dialogue text to active
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // ELI's 2nd bit of Dialogue
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         AudioManager.instance.PlaySFX("ELI2", 0.8f, 1);
         yield return new WaitForSeconds(2.5f);
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
 
-        yield return new WaitForSeconds(1f); //Wait Timer Between 4th Dialogue
+        yield return new WaitForSeconds(0.5f); //Wait Timer Between 4th Dialogue
 
         text2.SetActive(false); //Sets ELI's second text to false
         RyeText2.SetActive(true); //Sets Rye's second text to true
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger"); // RYE's 2nd bit of Dialogue
         yield return new WaitForSeconds(1f);
         AudioManager.instance.PlaySFX("RYE2", 0.8f, 1);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2.5f);
         dialogueBox.GetComponent<Animator>().SetTrigger("Trigger");
 
-        yield return new WaitForSeconds(1f); //Wait Timer Between 5th Dialogue
+        yield return new WaitForSeconds(0.25f); //Wait Timer Between 5th Dialogue
 
         text3.SetActive(true); //Sets ELI's third text to true
         RyeText2.SetActive(false); //Sets Rye's second text to false
@@ -235,11 +235,19 @@ public class SequenceManager : MonoBehaviour
     void VoiceLine4()
     {
         AudioManager.instance.PlaySFX("ELI4", 1.1f, 1);
-        Invoke("HangUp", 4f);
+        Invoke("Gotcha", 4.5f);
     }
 
     void HangUp()
     {
         AudioManager.instance.PlaySFX("HangUp", 1.2f, 1);
     }
+
+    void Gotcha()
+    {
+        AudioManager.instance.PlaySFX("RYE3", 1.1f, 1);
+        Invoke("HangUp", 1f);
+    }
+
+
 }

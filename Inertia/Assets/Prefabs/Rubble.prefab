@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1290003839407653033}
   - component: {fileID: 8058235276613969672}
   - component: {fileID: 165326420820381352}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Rubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}

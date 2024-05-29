@@ -55,12 +55,17 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        endUI.SetActive(true);
+        player.GetComponent<PlayerRigidbodyHealth>().currentHealth = 5; //Max Health :)
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        SceneManager.LoadScene(0);
+
+        /*endUI.SetActive(true);
         player.GetComponent<PlayerRigidbodyMovement>().enabled = false;
         player.GetComponent<PlayerRigidbodyHealth>().enabled = false;
         player.GetComponent<PlayerRigidbodyCombat>().enabled = false;
 
-        player.GetComponentInChildren<Animator>().SetFloat(0, 0);
+        player.GetComponentInChildren<Animator>().SetFloat(0, 0);*/
     }
 
     public void KillPlayer()
