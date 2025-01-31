@@ -10,7 +10,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float movementSpeed;
-    Vector3 targetDirection;
+    public Vector3 targetDirection;
 
     [Header("Jump")]
     bool isGrounded = true;

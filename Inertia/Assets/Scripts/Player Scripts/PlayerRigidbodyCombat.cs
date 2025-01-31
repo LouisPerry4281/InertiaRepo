@@ -21,6 +21,8 @@ public class PlayerRigidbodyCombat : MonoBehaviour
     public bool attackInput;
     public bool isAttacking;
 
+    [SerializeField] LayerMask enemyLayer;
+
     private void Start()
     {
         movement = GetComponent<PlayerRigidbodyMovement>();
@@ -46,8 +48,12 @@ public class PlayerRigidbodyCombat : MonoBehaviour
 
     IEnumerator Attack()
     {
+        print("Yippeee");
+
         attackInput = false;
         isAttacking = true;
+
+        FindAttackTarget();
 
         //Disables player and enemy collisions
         Physics.IgnoreLayerCollision(6, 7, true);
@@ -64,6 +70,12 @@ public class PlayerRigidbodyCombat : MonoBehaviour
         hitBox.enabled = false;
 
         isAttacking = false;
+    }
+
+    private void FindAttackTarget()
+    {
+        RaycastHit hit;
+        print(Physics.SphereCast(transform.position, 5, movement.targetDirection, out hit, Mathf.Infinity, enemyLayer));
     }
 
     private bool CanAttack()

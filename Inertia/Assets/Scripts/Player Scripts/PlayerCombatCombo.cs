@@ -16,10 +16,14 @@ public class PlayerCombatCombo : MonoBehaviour
 
     [SerializeField] GameObject weaponTrail;
 
+    [SerializeField] LayerMask enemyLayer;
+
     Animator anim;
     Weapon weapon;
     PlayerRigidbodyMovement playerMovement;
     Rigidbody rb;
+
+    Vector3 attackTarget;
 
     private void Start()
     {
@@ -39,7 +43,7 @@ public class PlayerCombatCombo : MonoBehaviour
 
         ExitAttack();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             Attack();
         }
@@ -67,8 +71,13 @@ public class PlayerCombatCombo : MonoBehaviour
         {
             CancelInvoke("EndCombo");
 
-            if (Time.time - lastClickedTime >= 0.3f)
+            if (Time.time - lastClickedTime >= 0.6f)
             {
+                if (FindAttackTarget())
+                {
+                    RotateToFaceTarget(attackTarget);
+                }
+
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 anim.Play("Attack", 1, 0);
 
@@ -93,6 +102,29 @@ public class PlayerCombatCombo : MonoBehaviour
                 }
             }
         }
+    }
+
+
+
+    private bool FindAttackTarget()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, 10, playerMovement.targetDirection, out hit, Mathf.Infinity, enemyLayer))
+        {
+            attackTarget = hit.collider.gameObject.transform.position;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void RotateToFaceTarget(Vector3 targetToFace)
+    {
+        Vector3 targetDirection = targetToFace - transform.position;
+
+        transform.rotation *= Quaternion.FromToRotation(playerMovement.targetDirection, targetDirection);
     }
 
     void ExitAttack()
