@@ -12,6 +12,10 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     [SerializeField] float movementSpeed;
     Vector3 targetDirection;
 
+    [Header("Jump")]
+    bool isGrounded = true;
+    [SerializeField] float jumpForce;
+
     [Header("Rotation")]
     float rotationVelocity;
     float targetRotation;
@@ -83,6 +87,11 @@ public class PlayerRigidbodyMovement : MonoBehaviour
         HandleAnimation();
         HandleActionLines();
 
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        }
+
         if (dashInput && !isDashing && canDash && currentJuice >= dashJuiceCost)
         {
             StartCoroutine(PlayerDash());
@@ -127,7 +136,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
         else
         {
-            rb.velocity = Vector3.zero;
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
             return;
         }
 
@@ -138,7 +147,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
             return;
 
         //Applies the target velocity with move speed modifier
-        rb.velocity = targetDirection * speedMultiplier;
+        rb.velocity = new Vector3(targetDirection.x * speedMultiplier, rb.velocity.y, targetDirection.z * speedMultiplier);
     }
 
     IEnumerator PlayerDash()
@@ -225,7 +234,7 @@ public class PlayerRigidbodyMovement : MonoBehaviour
 
     private void HandleAnimation()
     {
-        if (combatScript.isAttacking)
+        if (combatScript.isAttacking) //Set combat script to other script later
         {
             return;
         }
@@ -250,4 +259,5 @@ public class PlayerRigidbodyMovement : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
     }
+
 }
